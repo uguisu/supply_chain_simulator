@@ -29,7 +29,7 @@ _lib:
 	-fPIC \
 	-shared \
 	-pthread \
-	-o ./build/libscs.so
+	-o $(BUILD_DIR)/libscs.so
 
 lib: _lib done_message
 .PHONY : lib
@@ -43,13 +43,13 @@ _test:
 	-l glog \
 	-l gflags \
 	-pthread \
-	-o ./build/scs_test
+	-o $(BUILD_DIR)/scs_test
 
 test: _test done_message
 .PHONY : test
 
 clean:
-	$(RM) ./build/*
+	$(RM) $(BUILD_DIR)/*
 .PHONY : clean
 
 done_message:
