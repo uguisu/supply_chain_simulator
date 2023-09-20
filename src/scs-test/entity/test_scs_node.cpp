@@ -3,8 +3,8 @@
 //
 // Author: xin he
 //
-#ifndef TEST_SCS_NODE_HPP
-#define TEST_SCS_NODE_HPP
+#ifndef TEST_SCS_NODE_CPP
+#define TEST_SCS_NODE_CPP
 
 #include <assert.h>
 
@@ -20,10 +20,10 @@ void test_001()
     scs::entity::ScsNode node;
 
     // store functions
-    std::string name1 = "func1";
+    std::string name1 = "item1";
     node.getFuncMap().insert(std::make_pair(name1, &scs::entity::func_holding_cost_item_001));
 
-    std::string name2 = "func2";
+    std::string name2 = "item2";
     node.getFuncMap().insert(std::make_pair(name2, &scs::entity::func_holding_cost_item_002));
 
     // check result
@@ -33,4 +33,4 @@ void test_001()
 
 }}}}
 
-#endif /* TEST_SCS_NODE_HPP */
+#endif /* TEST_SCS_NODE_CPP */
