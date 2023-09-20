@@ -7,9 +7,11 @@
 #include <gflags/gflags.h>
 #include <glog/logging.h>
 
-#include "../scs/entity/scs_config.hpp"
+// global
 #include "GlobalVariables.hpp"
 
+// test case header
+#include "entity/test_scs_config.hpp"
 
 // declare default flag values
 DEFINE_string(app_name, "Supply Chain Simulator", "Application name");
@@ -68,11 +70,8 @@ int main(int argc, char *argv[])
     // log
     LOG(INFO) << programName;
 
-
-
-    scs::entity::ScsConfig config;
-    config.setNodeAmount(10);
-    LOG(INFO) << "amount: " << config.getNodeAmount();
+    // run tese
+    scs::test::entity::test_001();
 
     // output all logs
     google::FlushLogFiles(google::GLOG_INFO);
