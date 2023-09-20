@@ -3,7 +3,6 @@
 //
 // Author: xin he
 //
-#include <iostream>
 #include <string>
 #include <gflags/gflags.h>
 #include <glog/logging.h>
