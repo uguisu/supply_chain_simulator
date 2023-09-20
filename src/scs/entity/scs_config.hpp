@@ -6,6 +6,8 @@
 #ifndef SCS_CONFIG_HPP
 #define SCS_CONFIG_HPP
 
+#include <string>
+
 namespace scs { namespace entity {
 
 class ScsConfig
