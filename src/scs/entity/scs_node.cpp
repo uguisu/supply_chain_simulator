@@ -15,15 +15,6 @@
 
 namespace scs { namespace entity {
 
-    float func_holding_cost_item_001(const int16_t &amount)
-    {
-        return amount * 2;
-    }
-    float func_holding_cost_item_002(const int16_t &amount)
-    {
-        return amount * 5;
-    }
-
     /**
      * set name
      */
@@ -70,7 +61,7 @@ namespace scs { namespace entity {
     }
 
 
-    std::map<std::string, ScsNode::Fun_ptr>& ScsNode::getFuncMap()
+    std::map<std::string, scs::core::Fun_ptr>& ScsNode::getFuncMap()
     {
         return this->funcMap;
     }
@@ -82,14 +73,11 @@ namespace scs { namespace entity {
         {
             rtn = (*(this->funcMap[funcName]))(val);
         } else {
-            rtn = -999.99;
+            throw std::runtime_error("Can not find target function by name.");
         }
 
         return rtn;
     }
-
-
-
 
     ScsNode::~ScsNode()
     {}

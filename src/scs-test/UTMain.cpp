@@ -73,7 +73,7 @@ int main(int argc, char *argv[])
 
     // run tese
     scs::test::entity::config::test_001();
-    scs::test::entity::node::test_001();
+    scs::test::entity::node::test_all();
 
     // output all logs
     google::FlushLogFiles(google::GLOG_INFO);

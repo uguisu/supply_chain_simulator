@@ -10,13 +10,14 @@
 #include <vector>
 #include <map>
 
+#include "../core/scs_function.hpp"
+
 namespace scs { namespace entity {
 
 class ScsNode;
 class ScsEdge;
 
 /// TODO 假设每个仓库存储容量无限大
-
 
 /*
 Basic Structure:
@@ -44,11 +45,6 @@ Basic Structure:
     │ outputEdgeList   │
     └──────────────────┘
  */
-
-
-float func_holding_cost_item_001(const int16_t &amount);
-float func_holding_cost_item_002(const int16_t &amount);
-
 
 /**
  * Node
@@ -83,13 +79,14 @@ class ScsNode
          */
         std::vector<ScsEdge> getOutputEdgeList();
 
-
-        // 声明函数指针
-        typedef float (*Fun_ptr)(const int16_t &);
-
-        std::map<std::string, Fun_ptr>& getFuncMap();
+        /**
+         * get function map
+         */
+        std::map<std::string, scs::core::Fun_ptr>& getFuncMap();
+        /**
+         * execute target function
+         */
         float execFunc(const std::string &funcName, const int16_t &val);
-
 
         ~ScsNode();
     private:
@@ -102,8 +99,7 @@ class ScsNode
         std::vector<ScsEdge> outputEdgeList;
 
         // The holding cost of each material is stored as a function pointer in funcMap
-        std::map<std::string, Fun_ptr> funcMap;
-
+        std::map<std::string, scs::core::Fun_ptr> funcMap;
 };
 
 class ScsEdge
