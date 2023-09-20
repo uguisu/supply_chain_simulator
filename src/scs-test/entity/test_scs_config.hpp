@@ -6,10 +6,10 @@
 #ifndef TEST_SCS_CONFIG_HPP
 #define TEST_SCS_CONFIG_HPP
 
-namespace scs { namespace test { namespace entity {
+namespace scs { namespace test { namespace entity { namespace config {
 
 void test_001();
 
-}}}
+}}}}
 
 #endif /* TEST_SCS_CONFIG_HPP */

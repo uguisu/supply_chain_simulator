@@ -8,6 +8,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 
 namespace scs { namespace entity {
 
@@ -44,6 +45,11 @@ Basic Structure:
     └──────────────────┘
  */
 
+
+float func_holding_cost_item_001(const int16_t &amount);
+float func_holding_cost_item_002(const int16_t &amount);
+
+
 /**
  * Node
  */
@@ -77,6 +83,13 @@ class ScsNode
         */
         std::vector<ScsEdge> getOutputEdgeList();
 
+
+        // 声明函数指针
+        typedef float (*Fun_ptr)(const int16_t &);
+        std::map<std::string, Fun_ptr>& getFuncMap();
+        float execFunc(const std::string &funcName, const int16_t &val);
+
+
         ~ScsNode();
     private:
         /** node name */
@@ -88,6 +101,8 @@ class ScsNode
         std::vector<ScsEdge> outputEdgeList;
 
         // TODO 每种物料的持有成本
+
+        std::map<std::string, Fun_ptr> funcMap;
 
 };
 

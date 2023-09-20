@@ -6,21 +6,27 @@
 #ifndef TEST_SCS_CONFIG_CPP
 #define TEST_SCS_CONFIG_CPP
 
-#include <glog/logging.h>
+#include <assert.h>
+#include <string>
 
 #include "../../scs/entity/scs_config.hpp"
 
 #include "test_scs_config.hpp"
 
-namespace scs { namespace test { namespace entity {
+namespace scs { namespace test { namespace entity { namespace config {
 
 void test_001()
 {
+    // declare ScsConfig object
     scs::entity::ScsConfig config;
-    config.setNodeAmount(10);
-    LOG(INFO) << "amount: " << config.getNodeAmount();
+
+    int16_t targetVal = 10;
+
+    config.setNodeAmount(targetVal);
+
+    assert(targetVal == config.getNodeAmount());
 }
 
-}}}
+}}}}
 
 #endif /* TEST_SCS_CONFIG_CPP */

@@ -9,9 +9,20 @@
 #include <string>
 #include <vector>
 
+#include <glog/logging.h>
+
 #include "scs_node.hpp"
 
 namespace scs { namespace entity {
+
+    float func_holding_cost_item_001(const int16_t &amount)
+    {
+        return amount * 2;
+    }
+    float func_holding_cost_item_002(const int16_t &amount)
+    {
+        return amount * 5;
+    }
 
     /**
      * set name
@@ -57,6 +68,30 @@ namespace scs { namespace entity {
     {
         return this->outputEdgeList;
     }
+
+
+
+
+    std::map<std::string, ScsNode::Fun_ptr>& ScsNode::getFuncMap()
+    {
+        return this->funcMap;
+    }
+    float ScsNode::execFunc(const std::string &funcName, const int16_t &val)
+    {
+        float rtn = 0.0;
+
+        if(this->funcMap.count(funcName))
+        {
+            rtn = (*(this->funcMap[funcName]))(val);
+        } else {
+            rtn = -999.99;
+        }
+
+        return rtn;
+    }
+
+
+
 
     ScsNode::~ScsNode()
     {}
