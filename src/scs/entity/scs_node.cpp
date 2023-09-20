@@ -41,14 +41,14 @@ namespace scs { namespace entity {
 
     /**
      * set input edge list
-    */
+     */
     void ScsNode::setInputEdgeList(const std::vector<ScsEdge> &inputEdgeList)
     {
         this->inputEdgeList = inputEdgeList;
     }
     /**
      * get input edge list
-    */
+     */
     std::vector<ScsEdge> ScsNode::getInputEdgeList()
     {
         return this->inputEdgeList;
@@ -56,20 +56,18 @@ namespace scs { namespace entity {
 
     /**
      * set output edge list
-    */
+     */
     void ScsNode::setOutputEdgeList(const std::vector<ScsEdge> &outputEdgeList)
     {
         this->outputEdgeList = outputEdgeList;
     }   
     /**
      * get output edge list
-    */
+     */
     std::vector<ScsEdge> ScsNode::getOutputEdgeList()
     {
         return this->outputEdgeList;
     }
-
-
 
 
     std::map<std::string, ScsNode::Fun_ptr>& ScsNode::getFuncMap()
@@ -113,14 +111,14 @@ namespace scs { namespace entity {
 
     /**
      * set input node list
-    */
+     */
     void ScsEdge::setInputNodeList(const std::vector<ScsNode> &inputNodeList)
     {
         this->inputNodeList = inputNodeList;
     }
     /**
      * get input node list
-    */
+     */
     std::vector<ScsNode> ScsEdge::getInputNodeList()
     {
         return this->inputNodeList;
@@ -128,14 +126,14 @@ namespace scs { namespace entity {
 
     /**
      * set output node list
-    */
+     */
     void ScsEdge::setOutputNodeList(const std::vector<ScsNode> &outputNodeList)
     {
         this->outputNodeList = outputNodeList;
     }
     /**
      * get output node list
-    */
+     */
     std::vector<ScsNode> ScsEdge::getOutputNodeList()
     {
         return this->outputNodeList;

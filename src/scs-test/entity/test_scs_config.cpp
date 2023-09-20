@@ -6,8 +6,8 @@
 #ifndef TEST_SCS_CONFIG_CPP
 #define TEST_SCS_CONFIG_CPP
 
-#include <assert.h>
 #include <string>
+#include <assert.h>
 
 #include "../../scs/entity/scs_config.hpp"
 

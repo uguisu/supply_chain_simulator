@@ -67,25 +67,26 @@ class ScsNode
 
         /**
          * set input edge list
-        */
+         */
         void setInputEdgeList(const std::vector<ScsEdge> &inputEdgeList);
         /**
          * get input edge list
-        */
+         */
         std::vector<ScsEdge> getInputEdgeList();
 
         /**
          * set output edge list
-        */
+         */
         void setOutputEdgeList(const std::vector<ScsEdge> &outputEdgeList);
         /**
          * get output edge list
-        */
+         */
         std::vector<ScsEdge> getOutputEdgeList();
 
 
         // 声明函数指针
         typedef float (*Fun_ptr)(const int16_t &);
+
         std::map<std::string, Fun_ptr>& getFuncMap();
         float execFunc(const std::string &funcName, const int16_t &val);
 
@@ -100,8 +101,7 @@ class ScsNode
         /** output edge list */
         std::vector<ScsEdge> outputEdgeList;
 
-        // TODO 每种物料的持有成本
-
+        // The holding cost of each material is stored as a function pointer in funcMap
         std::map<std::string, Fun_ptr> funcMap;
 
 };
@@ -121,20 +121,20 @@ class ScsEdge
 
         /**
          * set input node list
-        */
+         */
         void setInputNodeList(const std::vector<ScsNode> &inputNodeList);
         /**
          * get input node list
-        */
+         */
         std::vector<ScsNode> getInputNodeList();
 
         /**
          * set output node list
-        */
+         */
         void setOutputNodeList(const std::vector<ScsNode> &outputNodeList);
         /**
          * get output node list
-        */
+         */
         std::vector<ScsNode> getOutputNodeList();
 
         ~ScsEdge();
