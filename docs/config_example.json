@@ -116,6 +116,34 @@
             ]
         }
     ],
+    "salvage_cost": [
+        {
+            "node_id": "5",
+            "func_list": [
+                {
+                    "item_id": "A",
+                    "func_id": "s_func1"
+                },
+                {
+                    "item_id": "B",
+                    "func_id": "s_func2"
+                }
+            ]
+        },
+        {
+            "node_id": "5",
+            "func_list": [
+                {
+                    "item_id": "A",
+                    "func_id": "s_func3"
+                },
+                {
+                    "item_id": "B",
+                    "func_id": "s_func4"
+                }
+            ]
+        }
+    ],
     "consumer": [
         {
             "node_id": "7",
@@ -143,6 +171,5 @@
                 }
             ]
         }
-    ],
-    "残值成本函数": "TODO"
+    ]
 }

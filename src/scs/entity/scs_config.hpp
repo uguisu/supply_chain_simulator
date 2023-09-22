@@ -9,7 +9,31 @@
 #include <string>
 #include <vector>
 
+#include <nlohmann/json.hpp>
+
+using json = nlohmann::json;
+
+
 namespace scs { namespace entity {
+
+// declare field name
+const std::string FIELD_ITEM_ID = "item_id";
+const std::string FIELD_FUNC_ID = "func_id";
+const std::string FIELD_NODE_ID = "func_id";
+const std::string FIELD_PATH = "path";
+const std::string FIELD_FUNC_LIST = "func_list";
+const std::string FIELD_LO = "lo";
+const std::string FIELD_LS = "ls";
+const std::string FIELD_HOLDING_COST = "holding_cost";
+const std::string FIELD_SHORTAGE_COST = "shortage_cost";
+const std::string FIELD_SALVAGE_COST = "salvage_cost";
+const std::string FIELD_CONSUMER = "consumer";
+const std::string FIELD_EDGES = "edges";
+const std::string FIELD_ITEMS = "items";
+const std::string FIELD_PROCESS_TIME = "process_time";
+const std::string FIELD_COMPONENT_LIST = "component_list";
+const std::string FIELD_MANUFACTURE = "manufacture";
+const std::string FIELD_FORMULA = "formula";
 
 // pre-declare class
 class ScsConfig;
@@ -19,9 +43,8 @@ class ScsConfigLoLs;
 class ScsConfigFormula;
 // For: "edges"
 class ScsConfigEdge;
-// For: "holding_cost", "shortage_cost", "consumer"
+// For: "holding_cost", "shortage_cost", "salvage_cost", "consumer"
 class ScsConfigCost;
-// TODO 残值成本函数
 
 // For: "func"
 class ScsConfigFunc;
@@ -39,6 +62,11 @@ class ScsConfigFunc
         /** function id */
         std::string funcId;
 
+        /**
+         * setup value
+         */
+        void from_json(const json &jsonObject);
+
         ~ScsConfigFunc() {};
 };
 
@@ -49,6 +77,11 @@ class ScsConfigCost
         std::string nodeId;
         /** function list */
         std::vector<ScsConfigFunc> funcList;
+
+        /**
+         * setup value
+         */
+        void from_json(const json &jsonObject);
 
         ~ScsConfigCost() {};
 };
@@ -61,6 +94,11 @@ class ScsConfigEdge
         /** item list */
         std::vector<std::string> items;
 
+        /**
+         * setup value
+         */
+        void from_json(const json &jsonObject);
+
         ~ScsConfigEdge() {};
 };
 
@@ -71,6 +109,11 @@ class ScsConfigComponent
         std::string itemId;
         /** materials */
         float materials;
+
+        /**
+         * setup value
+         */
+        void from_json(const json &jsonObject);
 
         ~ScsConfigComponent() {};
 };
@@ -85,6 +128,11 @@ class ScsConfigManufacture
         /** component list */
         std::vector<ScsConfigComponent> componentList;
 
+        /**
+         * setup value
+         */
+        void from_json(const json &jsonObject);
+
         ~ScsConfigManufacture() {};
 };
 
@@ -96,6 +144,11 @@ class ScsConfigFormula
         /** manufacture */
         std::vector<ScsConfigManufacture> manufacture;
 
+        /**
+         * setup value
+         */
+        void from_json(const json &jsonObject);
+
         ~ScsConfigFormula() {};
 };
 
@@ -106,6 +159,11 @@ class ScsConfigLoLs
         std::string path;
         /** function list */
         std::vector<ScsConfigFunc> funcList;
+
+        /**
+         * setup value
+         */
+        void from_json(const json &jsonObject);
 
         ~ScsConfigLoLs() {};
 };
@@ -126,18 +184,25 @@ class ScsConfig
         std::vector<ScsConfigCost> holdingCost;
         /** shortage cost */
         std::vector<ScsConfigCost> shortageCost;
+        /** salvage cost */
+        std::vector<ScsConfigCost> salvageCost;
         /** consumer */
         std::vector<ScsConfigCost> consumer;
-        // TODO 残值成本函数
 
         /**
-         * getNodeAmount
+         * read config values from json
          */
-        int16_t getNodeAmount();
+        void read(std::string jsonFileWithPath);
 
-        ~ScsConfig();
+        ~ScsConfig() {};
+    
+    private:
+        json jsonObject;
 };
 
 }}
 
 #endif /* SCS_CONFIG_HPP */
+
+
+// refer https://zhuanlan.zhihu.com/p/387380942
