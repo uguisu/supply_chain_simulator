@@ -198,6 +198,11 @@ class ScsConfig
     
     private:
         json jsonObject;
+
+        /**
+         * verify config info by rules
+         */
+        void verify();
 };
 
 }}

@@ -82,6 +82,18 @@ namespace scs { namespace entity {
             scc.from_json(c_item);
             this->consumer.push_back(scc);
         }
+
+        // verify all settings
+        this->verify();
+    }
+
+    /**
+     * verify config info by rules
+     */
+    void ScsConfig::verify()
+    {
+        // TODO throw error if there is an illegal value
+
     }
 
     /**
