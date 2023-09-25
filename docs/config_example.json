@@ -1,0 +1,175 @@
+{
+    "lo": [
+        {
+            "path": "(1, 2)",
+            "func_list": [
+                {
+                    "item_id": "A",
+                    "func_id": "func1"
+                },
+                {
+                    "item_id": "B",
+                    "func_id": "func2"
+                }
+            ]
+        }
+    ],
+    "ls": [
+        {
+            "path": "(1, 2)",
+            "func_list": [
+                {
+                    "item_id": "A",
+                    "func_id": "func1"
+                },
+                {
+                    "item_id": "B",
+                    "func_id": "func2"
+                }
+            ]
+        }
+    ],
+    "formula": [
+        {
+            "node_id": "3",
+            "manufacture": [
+                {
+                    "item_id": "C",
+                    "process_time": 2,
+                    "component_list": [
+                        {
+                            "item_id": "A",
+                            "materials": 2
+                        },
+                        {
+                            "item_id": "B",
+                            "materials": 1
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "edges": [
+        {
+            "path": "(1, 2)",
+            "items": ["A", "B"]
+        },
+        {
+            "path": "(1, 3)",
+            "items": ["A"]
+        }
+    ],
+    "holding_cost": [
+        {
+            "node_id": "1",
+            "func_list": [
+                {
+                    "item_id": "A",
+                    "func_id": "h_func1"
+                },
+                {
+                    "item_id": "B",
+                    "func_id": "h_func2"
+                }
+            ]
+        },
+        {
+            "node_id": "2",
+            "func_list": [
+                {
+                    "item_id": "A",
+                    "func_id": "h_func3"
+                },
+                {
+                    "item_id": "B",
+                    "func_id": "h_func4"
+                }
+            ]
+        }
+    ],
+    "shortage_cost": [
+        {
+            "node_id": "1",
+            "func_list": [
+                {
+                    "item_id": "A",
+                    "func_id": "h_func1"
+                },
+                {
+                    "item_id": "B",
+                    "func_id": "h_func2"
+                }
+            ]
+        },
+        {
+            "node_id": "2",
+            "func_list": [
+                {
+                    "item_id": "A",
+                    "func_id": "h_func3"
+                },
+                {
+                    "item_id": "B",
+                    "func_id": "h_func4"
+                }
+            ]
+        }
+    ],
+    "salvage_cost": [
+        {
+            "node_id": "5",
+            "func_list": [
+                {
+                    "item_id": "A",
+                    "func_id": "s_func1"
+                },
+                {
+                    "item_id": "B",
+                    "func_id": "s_func2"
+                }
+            ]
+        },
+        {
+            "node_id": "5",
+            "func_list": [
+                {
+                    "item_id": "A",
+                    "func_id": "s_func3"
+                },
+                {
+                    "item_id": "B",
+                    "func_id": "s_func4"
+                }
+            ]
+        }
+    ],
+    "consumer": [
+        {
+            "node_id": "7",
+            "func_list": [
+                {
+                    "item_id": "A",
+                    "func_id": "d_func1"
+                },
+                {
+                    "item_id": "B",
+                    "func_id": "d_func2"
+                }
+            ]
+        },
+        {
+            "node_id": "8",
+            "func_list": [
+                {
+                    "item_id": "A",
+                    "func_id": "d_func3"
+                },
+                {
+                    "item_id": "B",
+                    "func_id": "d_func4"
+                }
+            ]
+        }
+    ]
+}

@@ -8,13 +8,28 @@
 
 #include <iostream>
 
+#include "../entity/scs_config.hpp"
+#include "../entity/scs_graph.hpp"
 #include "scs_main.hpp"
+
 
 namespace scs { namespace core {
 
-void test_hello(const std::string &name)
+/**
+ * build graph
+ * @param jsonFileWithPath config file with path
+ */
+void build_graph(const std::string &jsonFileWithPath)
 {
-    std::cout << "hello " << name;
+    // read config info from json file
+    scs::entity::ScsConfig config;
+    config.read(jsonFileWithPath);
+
+    // build graph
+    scs::entity::ScsGraph graph;
+    graph.build(config);
+
+    // TODO next step ===============
 }
 
 }}
