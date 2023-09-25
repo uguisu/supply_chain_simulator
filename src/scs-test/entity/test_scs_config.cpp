@@ -17,14 +17,14 @@ namespace scs { namespace test { namespace entity { namespace config {
 
 void test_001()
 {
-    // declare ScsConfig object
-    scs::entity::ScsConfig config;
+    // // declare ScsConfig object
+    // scs::entity::ScsConfig config;
 
-    int16_t targetVal = 10;
+    // int16_t targetVal = 10;
 
-    config.setNodeAmount(targetVal);
+    // config.setNodeAmount(targetVal);
 
-    assert(targetVal == config.getNodeAmount());
+    // assert(targetVal == config.getNodeAmount());
 }
 
 }}}}

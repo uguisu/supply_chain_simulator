@@ -10,7 +10,11 @@
 
 namespace scs { namespace core {
 
-void test_hello(const std::string &name);
+/**
+ * build graph
+ * @param jsonFileWithPath config file with path
+ */
+void build_graph(const std::string &jsonFileWithPath);
 
 }}
 

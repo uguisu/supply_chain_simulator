@@ -2,7 +2,7 @@
     "lo": [
         {
             "path": "(1, 2)",
-            "func": [
+            "func_list": [
                 {
                     "item_id": "A",
                     "func_id": "func1"
@@ -17,7 +17,7 @@
     "ls": [
         {
             "path": "(1, 2)",
-            "func": [
+            "func_list": [
                 {
                     "item_id": "A",
                     "func_id": "func1"
@@ -36,7 +36,7 @@
                 {
                     "item_id": "C",
                     "process_time": 2,
-                    "component": [
+                    "component_list": [
                         {
                             "item_id": "A",
                             "materials": 2
@@ -63,7 +63,7 @@
     "holding_cost": [
         {
             "node_id": "1",
-            "func": [
+            "func_list": [
                 {
                     "item_id": "A",
                     "func_id": "h_func1"
@@ -76,7 +76,7 @@
         },
         {
             "node_id": "2",
-            "func": [
+            "func_list": [
                 {
                     "item_id": "A",
                     "func_id": "h_func3"
@@ -91,7 +91,7 @@
     "shortage_cost": [
         {
             "node_id": "1",
-            "func": [
+            "func_list": [
                 {
                     "item_id": "A",
                     "func_id": "h_func1"
@@ -104,7 +104,7 @@
         },
         {
             "node_id": "2",
-            "func": [
+            "func_list": [
                 {
                     "item_id": "A",
                     "func_id": "h_func3"
@@ -116,10 +116,38 @@
             ]
         }
     ],
+    "salvage_cost": [
+        {
+            "node_id": "5",
+            "func_list": [
+                {
+                    "item_id": "A",
+                    "func_id": "s_func1"
+                },
+                {
+                    "item_id": "B",
+                    "func_id": "s_func2"
+                }
+            ]
+        },
+        {
+            "node_id": "5",
+            "func_list": [
+                {
+                    "item_id": "A",
+                    "func_id": "s_func3"
+                },
+                {
+                    "item_id": "B",
+                    "func_id": "s_func4"
+                }
+            ]
+        }
+    ],
     "consumer": [
         {
             "node_id": "7",
-            "func": [
+            "func_list": [
                 {
                     "item_id": "A",
                     "func_id": "d_func1"
@@ -132,7 +160,7 @@
         },
         {
             "node_id": "8",
-            "func": [
+            "func_list": [
                 {
                     "item_id": "A",
                     "func_id": "d_func3"
@@ -143,6 +171,5 @@
                 }
             ]
         }
-    ],
-    "残值成本函数": "TODO"
+    ]
 }
