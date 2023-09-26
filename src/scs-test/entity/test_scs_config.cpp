@@ -21,15 +21,7 @@ void test_all()
 {
     LOG(INFO) << "Test -> test_scs_config start";
 
-    try
-    {
-        test_001();
-    }
-    catch(const std::exception& e)
-    {
-        LOG(ERROR) << e.what();
-    }
-    
+    test_001();
 
     LOG(INFO) << "Test -> test_scs_config end";
 }
