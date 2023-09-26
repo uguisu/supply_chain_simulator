@@ -15,7 +15,6 @@
 #include "scs_node.hpp"
 #include "scs_graph.hpp"
 
-
 namespace scs { namespace entity {
 
 /**
@@ -26,9 +25,9 @@ void ScsGraph::build(const scs::entity::ScsConfig &config)
 {
     // go through each config unit, re-build the data structure
 
-    // Field: lo
+    // TODO Field: lo
 
-    // Field: ls
+    // TODO Field: ls
 
     // Field: formula
     this->_processFormula(config.formula);
@@ -99,23 +98,7 @@ void ScsGraph::_processEdge(const std::vector<ScsConfigEdge> &edge)
     for(ScsConfigEdge scsEdge : edge)
     {
         // path
-        std::string _p = scsEdge.path;
-
-        // remove brackets
-        std::string wrk_target = "(";
-        _p.replace(_p.find(wrk_target), wrk_target.length(), "");
-
-        wrk_target = ")";
-        _p.replace(_p.find(wrk_target), wrk_target.length(), "");
-
-        wrk_target = " ";
-        _p.replace(_p.find(wrk_target), wrk_target.length(), "");
-
-        wrk_target = ",";
-        int splitPoint = _p.find(wrk_target);
-
-        leftNodeId = _p.substr(0, splitPoint);
-        rightNodeId = _p.substr(splitPoint + 1);
+        this->splitPath(scsEdge.path, leftNodeId, rightNodeId);
 
         // left node
         ScsNode _node;
@@ -212,6 +195,34 @@ void ScsGraph::make_sure_item(std::map<std::string, ScsItem> &itemMap, const std
 void ScsGraph::verify()
 {
     // TODO verify()
+}
+
+/**
+ * split path
+ * @param path path, like "(1, 2)"
+ * @param leftP left path
+ * @param rightP right path
+ */
+void splitPath(const std::string &path, std::string &leftP, std::string &rightP)
+{
+        // path
+        std::string _p = path;
+
+        // remove brackets
+        std::string wrk_target = "(";
+        _p.replace(_p.find(wrk_target), wrk_target.length(), "");
+
+        wrk_target = ")";
+        _p.replace(_p.find(wrk_target), wrk_target.length(), "");
+
+        wrk_target = " ";
+        _p.replace(_p.find(wrk_target), wrk_target.length(), "");
+
+        wrk_target = ",";
+        int splitPoint = _p.find(wrk_target);
+
+        leftP = _p.substr(0, splitPoint);
+        rightP = _p.substr(splitPoint + 1);
 }
 
 }}

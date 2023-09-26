@@ -68,6 +68,7 @@ class ScsGraph
          * @param node ScsNode object
          */
         void make_sure_node(const std::string &nodeId, ScsNode &node);
+
         /**
          * make sure target itemId exist in itemMap
          * @param itemMap item map
@@ -78,6 +79,14 @@ class ScsGraph
             std::map<std::string, ScsItem> &itemMap,
             const std::string &itemId,
             const ScsItem &item);
+
+        /**
+         * split path
+         * @param path path, like "(1, 2)"
+         * @param leftP left path
+         * @param rightP right path
+         */
+        void splitPath(const std::string &path, std::string &leftP, std::string &rightP);
 };
 
 
