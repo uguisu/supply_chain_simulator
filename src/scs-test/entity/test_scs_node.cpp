@@ -7,6 +7,7 @@
 #define TEST_SCS_NODE_CPP
 
 #include <assert.h>
+#include <glog/logging.h>
 
 #include "../../scs/core/scs_function.hpp"
 #include "../../scs/entity/scs_node.hpp"
@@ -17,8 +18,12 @@ namespace scs { namespace test { namespace entity { namespace node {
 
 void test_all()
 {
+    LOG(INFO) << "Test -> test_scs_node start";
+
     test_001();
     test_002();
+
+    LOG(INFO) << "Test -> test_scs_node end";
 }
 
 void test_001()

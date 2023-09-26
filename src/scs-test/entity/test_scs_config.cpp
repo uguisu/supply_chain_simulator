@@ -8,6 +8,7 @@
 
 #include <string>
 #include <assert.h>
+#include <glog/logging.h>
 
 #include "../../scs/entity/scs_config.hpp"
 
@@ -15,16 +16,41 @@
 
 namespace scs { namespace test { namespace entity { namespace config {
 
+
+void test_all()
+{
+    LOG(INFO) << "Test -> test_scs_config start";
+
+    try
+    {
+        test_001();
+    }
+    catch(const std::exception& e)
+    {
+        LOG(ERROR) << e.what();
+    }
+    
+
+    LOG(INFO) << "Test -> test_scs_config end";
+}
+
 void test_001()
 {
     // // declare ScsConfig object
-    // scs::entity::ScsConfig config;
+    scs::entity::ScsConfig config;
 
-    // int16_t targetVal = 10;
+    std::string testJsonFile = "../docs/config_example.json";
 
-    // config.setNodeAmount(targetVal);
+    config.read(testJsonFile);
 
-    // assert(targetVal == config.getNodeAmount());
+    assert(1 == config.lo.size());
+    assert(1 == config.ls.size());
+    assert(1 == config.formula.size());
+    assert(2 == config.edges.size());
+    assert(2 == config.holdingCost.size());
+    assert(2 == config.shortageCost.size());
+    assert(2 == config.salvageCost.size());
+    assert(2 == config.consumer.size());
 }
 
 }}}}
