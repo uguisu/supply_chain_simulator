@@ -40,7 +40,7 @@ namespace scs { namespace entity {
             scll.from_json(lo_item);
             this->ls.push_back(scll);
         }
-        // field: edges
+        // field: formula
         for(auto &f_item : jsonObject[FIELD_FORMULA])
         {
             ScsConfigFormula scf;
@@ -93,6 +93,14 @@ namespace scs { namespace entity {
     void ScsConfig::verify()
     {
         // TODO throw error if there is an illegal value
+
+        /*
+
+        Rule:
+        - 输入的边上，必须要含有 manufacture 所需要的 item
+        
+        */
+
 
     }
 
@@ -154,7 +162,7 @@ namespace scs { namespace entity {
     void ScsConfigComponent::from_json(const json &jsonObject)
     {
         jsonObject.at(FIELD_ITEM_ID).get_to(this->itemId);
-        jsonObject.at(FIELD_ITEM_ID).get_to(this->materials);
+        jsonObject.at(FIELD_MATERIAL).get_to(this->materials);
     }
 
     /**

@@ -34,6 +34,7 @@ const std::string FIELD_PROCESS_TIME = "process_time";
 const std::string FIELD_COMPONENT_LIST = "component_list";
 const std::string FIELD_MANUFACTURE = "manufacture";
 const std::string FIELD_FORMULA = "formula";
+const std::string FIELD_MATERIAL= "materials";
 
 // pre-declare class
 class ScsConfig;
