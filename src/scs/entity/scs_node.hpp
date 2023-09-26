@@ -11,6 +11,8 @@
 #include <map>
 
 #include "../core/scs_function.hpp"
+#include "scs_config.hpp"
+#include "scs_item.hpp"
 
 namespace scs { namespace entity {
 
@@ -52,32 +54,21 @@ Basic Structure:
 class ScsNode
 {
     public:
-        /**
-         * set name
-         */
-        void setName(const std::string &name);
-        /**
-         * get name
-         */
-        std::string getName();
 
         /**
-         * set input edge list
+         * node id
          */
-        void setInputEdgeList(const std::vector<ScsEdge> &inputEdgeList);
-        /**
-         * get input edge list
-         */
-        std::vector<ScsEdge> getInputEdgeList();
+        std::string id = "";
 
         /**
-         * set output edge list
+         * input edge list
          */
-        void setOutputEdgeList(const std::vector<ScsEdge> &outputEdgeList);
+        std::vector<ScsEdge> inputEdgeList;
+
         /**
-         * get output edge list
+         * output edge list
          */
-        std::vector<ScsEdge> getOutputEdgeList();
+        std::vector<ScsEdge> outputEdgeList;
 
         /**
          * get function map
@@ -88,15 +79,21 @@ class ScsNode
          */
         float execFunc(const std::string &funcName, const int16_t &val);
 
+        /**
+         * manufacture map
+         * 
+         * key: item_id
+         * val: ScsConfigManufacture object
+         */
+        std::map<std::string, ScsConfigManufacture> manufactureMap;
+
+        /**
+         * items that stored in local node
+         */
+        std::map<std::string, ScsItem> itemMap;
+
         ~ScsNode();
     private:
-        /** node name */
-        std::string name = "";
-
-        /** input edge list */
-        std::vector<ScsEdge> inputEdgeList;
-        /** output edge list */
-        std::vector<ScsEdge> outputEdgeList;
 
         // The holding cost of each material is stored as a function pointer in funcMap
         std::map<std::string, scs::core::Fun_ptr> funcMap;

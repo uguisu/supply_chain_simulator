@@ -15,52 +15,6 @@
 
 namespace scs { namespace entity {
 
-    /**
-     * set name
-     */
-    void ScsNode::setName(const std::string &name)
-    {
-        this->name = name;
-    }
-    /**
-     * get name
-     */
-    std::string ScsNode::getName()
-    {
-        return this->name;
-    }
-
-    /**
-     * set input edge list
-     */
-    void ScsNode::setInputEdgeList(const std::vector<ScsEdge> &inputEdgeList)
-    {
-        this->inputEdgeList = inputEdgeList;
-    }
-    /**
-     * get input edge list
-     */
-    std::vector<ScsEdge> ScsNode::getInputEdgeList()
-    {
-        return this->inputEdgeList;
-    }
-
-    /**
-     * set output edge list
-     */
-    void ScsNode::setOutputEdgeList(const std::vector<ScsEdge> &outputEdgeList)
-    {
-        this->outputEdgeList = outputEdgeList;
-    }   
-    /**
-     * get output edge list
-     */
-    std::vector<ScsEdge> ScsNode::getOutputEdgeList()
-    {
-        return this->outputEdgeList;
-    }
-
-
     std::map<std::string, scs::core::Fun_ptr>& ScsNode::getFuncMap()
     {
         return this->funcMap;
