@@ -19,7 +19,7 @@ namespace scs { namespace entity {
 // declare field name
 const std::string FIELD_ITEM_ID = "item_id";
 const std::string FIELD_FUNC_ID = "func_id";
-const std::string FIELD_NODE_ID = "func_id";
+const std::string FIELD_NODE_ID = "node_id";
 const std::string FIELD_PATH = "path";
 const std::string FIELD_FUNC_LIST = "func_list";
 const std::string FIELD_LO = "lo";
