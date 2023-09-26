@@ -203,7 +203,7 @@ void ScsGraph::verify()
  * @param leftP left path
  * @param rightP right path
  */
-void splitPath(const std::string &path, std::string &leftP, std::string &rightP)
+void ScsGraph::splitPath(const std::string &path, std::string &leftP, std::string &rightP)
 {
         // path
         std::string _p = path;
