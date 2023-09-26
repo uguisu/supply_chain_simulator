@@ -29,6 +29,8 @@ Basic Structure:
     │ name             │
     │ inputEdgeList    │
     │ outputEdgeList   │
+    │ manufactureMap   │
+    │ itemMap          │
     └──────────────────┘
              │
     ┌──────────────────┐
@@ -45,6 +47,8 @@ Basic Structure:
     │ name             │
     │ inputEdgeList    │
     │ outputEdgeList   │
+    │ manufactureMap   │
+    │ itemMap          │
     └──────────────────┘
  */
 
@@ -71,15 +75,6 @@ class ScsNode
         std::vector<ScsEdge> outputEdgeList;
 
         /**
-         * get function map
-         */
-        std::map<std::string, scs::core::Fun_ptr>& getFuncMap();
-        /**
-         * execute target function
-         */
-        float execFunc(const std::string &funcName, const int16_t &val);
-
-        /**
          * manufacture map
          * 
          * key: item_id
@@ -91,6 +86,18 @@ class ScsNode
          * items that stored in local node
          */
         std::map<std::string, ScsItem> itemMap;
+
+
+
+
+        /**
+         * get function map
+         */
+        std::map<std::string, scs::core::Fun_ptr>& getFuncMap();
+        /**
+         * execute target function
+         */
+        float execFunc(const std::string &funcName, const int16_t &val);
 
         ~ScsNode();
     private:
