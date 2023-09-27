@@ -68,6 +68,13 @@ void test_001()
     assert("G" == config.formula[0].manufacture[0].componentList[1].itemId);
     assert(float(10.9) == config.formula[0].manufacture[0].componentList[1].materials);
 
+    assert("(5, 6)" == config.edges[0].path);
+    assert(2 == config.edges[0].items.size());
+    assert("H" == config.edges[0].items[0]);
+    assert("I" == config.edges[0].items[1]);
+    assert("(7, 8)" == config.edges[1].path);
+    assert(1 == config.edges[1].items.size());
+    assert("J" == config.edges[1].items[0]);
 }
 
 }}}}
