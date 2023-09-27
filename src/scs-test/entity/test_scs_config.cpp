@@ -82,13 +82,25 @@ void test_001()
     assert("h_func1" == config.holdingCost[0].funcList[0].funcId);
     assert("L" == config.holdingCost[0].funcList[1].itemId);
     assert("h_func2" == config.holdingCost[0].funcList[1].funcId);
-
     assert("10" == config.holdingCost[1].nodeId);
     assert(2 == config.holdingCost[1].funcList.size());
     assert("M" == config.holdingCost[1].funcList[0].itemId);
     assert("h_func3" == config.holdingCost[1].funcList[0].funcId);
     assert("N" == config.holdingCost[1].funcList[1].itemId);
     assert("h_func4" == config.holdingCost[1].funcList[1].funcId);
+
+    assert("11" == config.shortageCost[0].nodeId);
+    assert(2 == config.shortageCost[0].funcList.size());
+    assert("O" == config.shortageCost[0].funcList[0].itemId);
+    assert("h_func5" == config.shortageCost[0].funcList[0].funcId);
+    assert("P" == config.shortageCost[0].funcList[1].itemId);
+    assert("h_func6" == config.shortageCost[0].funcList[1].funcId);
+    assert("12" == config.shortageCost[1].nodeId);
+    assert(2 == config.shortageCost[1].funcList.size());
+    assert("Q" == config.shortageCost[1].funcList[0].itemId);
+    assert("h_func7" == config.shortageCost[1].funcList[0].funcId);
+    assert("R" == config.shortageCost[1].funcList[1].itemId);
+    assert("h_func8" == config.shortageCost[1].funcList[1].funcId);
 }
 
 }}}}
