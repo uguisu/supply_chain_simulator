@@ -43,6 +43,21 @@ void test_001()
     assert(2 == config.shortageCost.size());
     assert(2 == config.salvageCost.size());
     assert(2 == config.consumer.size());
+
+    assert(2 == config.lo[0].funcList.size());
+    assert("(1, 2)" == config.lo[0].path);
+    assert("A" == config.lo[0].funcList[0].itemId);
+    assert("func1" == config.lo[0].funcList[0].funcId);
+    assert("B" == config.lo[0].funcList[1].itemId);
+    assert("func2" == config.lo[0].funcList[1].funcId);
+
+    assert(2 == config.ls[0].funcList.size());
+    assert("(3, 4)" == config.ls[0].path);
+    assert("C" == config.ls[0].funcList[0].itemId);
+    assert("func3" == config.ls[0].funcList[0].funcId);
+    assert("D" == config.ls[0].funcList[1].itemId);
+    assert("func4" == config.ls[0].funcList[1].funcId);
+
 }
 
 }}}}
