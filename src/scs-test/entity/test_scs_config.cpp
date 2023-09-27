@@ -75,6 +75,20 @@ void test_001()
     assert("(7, 8)" == config.edges[1].path);
     assert(1 == config.edges[1].items.size());
     assert("J" == config.edges[1].items[0]);
+
+    assert("9" == config.holdingCost[0].nodeId);
+    assert(2 == config.holdingCost[0].funcList.size());
+    assert("K" == config.holdingCost[0].funcList[0].itemId);
+    assert("h_func1" == config.holdingCost[0].funcList[0].funcId);
+    assert("L" == config.holdingCost[0].funcList[1].itemId);
+    assert("h_func2" == config.holdingCost[0].funcList[1].funcId);
+
+    assert("10" == config.holdingCost[1].nodeId);
+    assert(2 == config.holdingCost[1].funcList.size());
+    assert("M" == config.holdingCost[1].funcList[0].itemId);
+    assert("h_func3" == config.holdingCost[1].funcList[0].funcId);
+    assert("N" == config.holdingCost[1].funcList[1].itemId);
+    assert("h_func4" == config.holdingCost[1].funcList[1].funcId);
 }
 
 }}}}
