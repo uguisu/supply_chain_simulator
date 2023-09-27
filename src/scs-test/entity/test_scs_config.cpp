@@ -101,6 +101,19 @@ void test_001()
     assert("h_func7" == config.shortageCost[1].funcList[0].funcId);
     assert("R" == config.shortageCost[1].funcList[1].itemId);
     assert("h_func8" == config.shortageCost[1].funcList[1].funcId);
+
+    assert("13" == config.salvageCost[0].nodeId);
+    assert(2 == config.salvageCost[0].funcList.size());
+    assert("S" == config.salvageCost[0].funcList[0].itemId);
+    assert("s_func1" == config.salvageCost[0].funcList[0].funcId);
+    assert("T" == config.salvageCost[0].funcList[1].itemId);
+    assert("s_func2" == config.salvageCost[0].funcList[1].funcId);
+    assert("14" == config.salvageCost[1].nodeId);
+    assert(2 == config.salvageCost[1].funcList.size());
+    assert("U" == config.salvageCost[1].funcList[0].itemId);
+    assert("s_func3" == config.salvageCost[1].funcList[0].funcId);
+    assert("V" == config.salvageCost[1].funcList[1].itemId);
+    assert("s_func4" == config.salvageCost[1].funcList[1].funcId);
 }
 
 }}}}
