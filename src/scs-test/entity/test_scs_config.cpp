@@ -114,6 +114,19 @@ void test_001()
     assert("s_func3" == config.salvageCost[1].funcList[0].funcId);
     assert("V" == config.salvageCost[1].funcList[1].itemId);
     assert("s_func4" == config.salvageCost[1].funcList[1].funcId);
+
+    assert("15" == config.consumer[0].nodeId);
+    assert(2 == config.consumer[0].funcList.size());
+    assert("W" == config.consumer[0].funcList[0].itemId);
+    assert("d_func1" == config.consumer[0].funcList[0].funcId);
+    assert("X" == config.consumer[0].funcList[1].itemId);
+    assert("d_func2" == config.consumer[0].funcList[1].funcId);
+    assert("16" == config.consumer[1].nodeId);
+    assert(2 == config.consumer[1].funcList.size());
+    assert("Y" == config.consumer[1].funcList[0].itemId);
+    assert("d_func3" == config.consumer[1].funcList[0].funcId);
+    assert("Z" == config.consumer[1].funcList[1].itemId);
+    assert("d_func4" == config.consumer[1].funcList[1].funcId);
 }
 
 }}}}
