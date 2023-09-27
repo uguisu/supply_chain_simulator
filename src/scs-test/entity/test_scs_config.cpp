@@ -58,6 +58,16 @@ void test_001()
     assert("D" == config.ls[0].funcList[1].itemId);
     assert("func4" == config.ls[0].funcList[1].funcId);
 
+    assert("5" == config.formula[0].nodeId);
+    assert(1 == config.formula[0].manufacture.size());
+    assert("E" == config.formula[0].manufacture[0].itemId);
+    assert(float(2.1) == config.formula[0].manufacture[0].processTime);
+    assert(2 == config.formula[0].manufacture[0].componentList.size());
+    assert("F" == config.formula[0].manufacture[0].componentList[0].itemId);
+    assert(float(3.2) == config.formula[0].manufacture[0].componentList[0].materials);
+    assert("G" == config.formula[0].manufacture[0].componentList[1].itemId);
+    assert(float(10.9) == config.formula[0].manufacture[0].componentList[1].materials);
+
 }
 
 }}}}
