@@ -15,10 +15,16 @@
 
 namespace scs { namespace entity {
 
+    /**
+     * get function map
+     */
     std::map<std::string, scs::core::Fun_ptr>& ScsNode::getFuncMap()
     {
         return this->funcMap;
     }
+    /**
+     * execute target function
+     */
     float ScsNode::execFunc(const std::string &funcName, const int16_t &val)
     {
         float rtn = 0.0;
@@ -35,51 +41,6 @@ namespace scs { namespace entity {
 
     ScsNode::~ScsNode()
     {}
-
-    /**
-     * set name
-     */
-    void ScsEdge::setName(const std::string &name)
-    {
-        this->name = name;
-    }
-    /**
-     * get name
-     */
-    std::string ScsEdge::getName()
-    {
-        return this->name;
-    }
-
-    /**
-     * set input node list
-     */
-    void ScsEdge::setInputNodeList(const std::vector<ScsNode> &inputNodeList)
-    {
-        this->inputNodeList = inputNodeList;
-    }
-    /**
-     * get input node list
-     */
-    std::vector<ScsNode> ScsEdge::getInputNodeList()
-    {
-        return this->inputNodeList;
-    }
-
-    /**
-     * set output node list
-     */
-    void ScsEdge::setOutputNodeList(const std::vector<ScsNode> &outputNodeList)
-    {
-        this->outputNodeList = outputNodeList;
-    }
-    /**
-     * get output node list
-     */
-    std::vector<ScsNode> ScsEdge::getOutputNodeList()
-    {
-        return this->outputNodeList;
-    }
 
     ScsEdge::~ScsEdge()
     {}

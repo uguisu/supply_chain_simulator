@@ -26,7 +26,7 @@ Basic Structure:
     ┌──────────────────┐
     │       Node       │
     ├──────────────────┤
-    │ name             │
+    │ id               │
     │ inputEdgeList    │
     │ outputEdgeList   │
     │ manufactureMap   │
@@ -36,7 +36,7 @@ Basic Structure:
     ┌──────────────────┐
     │       Edge       │
     ├──────────────────┤
-    │ name             │
+    │ id               │
     │ inputNodeList    │
     │ outputNodeList   │
     └──────────────────┘
@@ -44,7 +44,7 @@ Basic Structure:
     ┌──────────────────┐
     │       Node       │
     ├──────────────────┤
-    │ name             │
+    │ id               │
     │ inputEdgeList    │
     │ outputEdgeList   │
     │ manufactureMap   │
@@ -89,7 +89,7 @@ class ScsNode
 
 
 
-
+        // TODO 这里仅仅是一个demo
         /**
          * get function map
          */
@@ -110,44 +110,22 @@ class ScsEdge
 {
 
     public:
-        /**
-         * set name
-         */
-        void setName(const std::string &name);
-        /**
-         * get name
-         */
-        std::string getName();
 
         /**
-         * set input node list
+         * node id
          */
-        void setInputNodeList(const std::vector<ScsNode> &inputNodeList);
-        /**
-         * get input node list
-         */
-        std::vector<ScsNode> getInputNodeList();
-
-        /**
-         * set output node list
-         */
-        void setOutputNodeList(const std::vector<ScsNode> &outputNodeList);
-        /**
-         * get output node list
-         */
-        std::vector<ScsNode> getOutputNodeList();
-
-        ~ScsEdge();
-    private:
-        /** node name */
-        std::string name = "";
+        std::string id = "";
 
         /** input node list */
         std::vector<ScsNode> inputNodeList;
         /** output node list */
         std::vector<ScsNode> outputNodeList;
 
+        ~ScsEdge();
+    private:
+
         // TODO 每种物料的运输都有成本
+
 };
 
 }}
