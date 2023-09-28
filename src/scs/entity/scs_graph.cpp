@@ -25,9 +25,11 @@ void ScsGraph::build(const scs::entity::ScsConfig &config)
 {
     // go through each config unit, re-build the data structure
 
-    // TODO Field: lo
+    // Field: lo
+    this->_processLoLs(config.lo, scs::enums::CostType::Order);
 
-    // TODO Field: ls
+    // Field: ls
+    this->_processLoLs(config.ls, scs::enums::CostType::Shipment);
 
     // Field: formula
     this->_processFormula(config.formula);
@@ -46,7 +48,47 @@ void ScsGraph::build(const scs::entity::ScsConfig &config)
 
     // Field: consumer
     this->_processCost(config.consumer, scs::enums::CostType::Consumer);
+}
 
+/**
+ * process LO/LS
+ * @param lols ScsConfigLoLs object
+ * @param costType CostType
+ */
+void ScsGraph::_processLoLs(const std::vector<ScsConfigLoLs> &lols, const scs::enums::CostType &costType)
+{
+    std::string leftNodeId = "";
+    std::string rightNodeId = "";
+
+    for(ScsConfigLoLs scsLols : lols)
+    {
+        // path
+        this->splitPath(scsLols.path, leftNodeId, rightNodeId);
+
+        // left node
+        ScsNode _lnode;
+        // right node
+        ScsNode _rnode;
+        this->make_sure_node(leftNodeId, _lnode);
+        this->make_sure_node(rightNodeId, _rnode);
+
+        for(ScsConfigFunc scsFunc : scsLols.funcList)
+        {
+            ScsEdge _edge;
+            _edge.fromNodeId = leftNodeId;
+            _edge.toNodeId = rightNodeId;
+            _edge.itemId = scsFunc.itemId;
+
+            if(costType == scs::enums::CostType::Order)
+            {
+                _edge.loFuncId = scsFunc.funcId;
+            }
+            if(costType == scs::enums::CostType::Shipment)
+            {
+                _edge.lsFuncId = scsFunc.funcId;
+            }
+        }
+    }
 }
 
 /**
@@ -167,8 +209,6 @@ void ScsGraph::make_sure_node(const std::string &nodeId, ScsNode &node)
     }
 }
 
-
-
 /**
  * make sure target itemId exist in itemMap
  * @param itemMap item map
@@ -205,24 +245,24 @@ void ScsGraph::verify()
  */
 void ScsGraph::splitPath(const std::string &path, std::string &leftP, std::string &rightP)
 {
-        // path
-        std::string _p = path;
+    // path
+    std::string _p = path;
 
-        // remove brackets
-        std::string wrk_target = "(";
-        _p.replace(_p.find(wrk_target), wrk_target.length(), "");
+    // remove brackets
+    std::string wrk_target = "(";
+    _p.replace(_p.find(wrk_target), wrk_target.length(), "");
 
-        wrk_target = ")";
-        _p.replace(_p.find(wrk_target), wrk_target.length(), "");
+    wrk_target = ")";
+    _p.replace(_p.find(wrk_target), wrk_target.length(), "");
 
-        wrk_target = " ";
-        _p.replace(_p.find(wrk_target), wrk_target.length(), "");
+    wrk_target = " ";
+    _p.replace(_p.find(wrk_target), wrk_target.length(), "");
 
-        wrk_target = ",";
-        int splitPoint = _p.find(wrk_target);
+    wrk_target = ",";
+    int splitPoint = _p.find(wrk_target);
 
-        leftP = _p.substr(0, splitPoint);
-        rightP = _p.substr(splitPoint + 1);
+    leftP = _p.substr(0, splitPoint);
+    rightP = _p.substr(splitPoint + 1);
 }
 
 }}

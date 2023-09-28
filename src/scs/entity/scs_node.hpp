@@ -37,8 +37,11 @@ Basic Structure:
     │       Edge       │
     ├──────────────────┤
     │ id               │
-    │ inputNodeList    │
-    │ outputNodeList   │
+    │ fromNodeId       │
+    │ toNodeId         │
+    │ itemId           │
+    │ lsFuncId         │
+    │ loFuncId         │
     └──────────────────┘
              │
     ┌──────────────────┐
@@ -106,25 +109,46 @@ class ScsNode
         std::map<std::string, scs::core::Fun_ptr> funcMap;
 };
 
+/**
+ * Edge
+ */
 class ScsEdge
 {
 
     public:
 
         /**
-         * node id
+         * edge id
          */
         std::string id = "";
 
-        /** input node list */
-        std::vector<ScsNode> inputNodeList;
-        /** output node list */
-        std::vector<ScsNode> outputNodeList;
+        /**
+         * from node id
+         */
+        std::string fromNodeId;
+
+        /**
+         * to node id
+         */
+        std::string toNodeId;
+
+        /**
+         * item id
+         */
+        std::string itemId;
+
+        /**
+         * shipment function id
+         */
+        std::string lsFuncId;
+
+        /**
+         * order function id
+         */
+        std::string loFuncId;
 
         ~ScsEdge();
     private:
-
-        // TODO 每种物料的运输都有成本
 
 };
 

@@ -18,7 +18,9 @@ enum class CostType
     HoldingCost = 1,
     ShortageCost = 2,
     SalvageCost = 3,
-    Consumer = 4
+    Consumer = 4,
+    Order = 5,
+    Shipment = 6
 };
 
 }}

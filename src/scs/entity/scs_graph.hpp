@@ -44,6 +44,13 @@ class ScsGraph
         void verify();
 
         /**
+         * process LO/LS
+         * @param lols ScsConfigLoLs object
+         * @param costType CostType
+         */
+        void _processLoLs(const std::vector<ScsConfigLoLs> &lols, const scs::enums::CostType &costType);
+
+        /**
          * process formula
          * @param formula ScsConfigFormula list
          */
