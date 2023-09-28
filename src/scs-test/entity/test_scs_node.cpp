@@ -20,13 +20,13 @@ void test_all()
 {
     LOG(INFO) << "Test -> test_scs_node start";
 
-    test_001();
-    test_002();
+    test_901();
+    test_902();
 
     LOG(INFO) << "Test -> test_scs_node end";
 }
 
-void test_001()
+void test_901()
 {
     // declare ScsNode object
     scs::entity::ScsNode node;
@@ -46,7 +46,7 @@ void test_001()
 /**
  * test exception
  */
-void test_002()
+void test_902()
 {
     // declare ScsNode object
     scs::entity::ScsNode node;

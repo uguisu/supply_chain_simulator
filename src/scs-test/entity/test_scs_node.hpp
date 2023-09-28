@@ -10,8 +10,8 @@ namespace scs { namespace test { namespace entity { namespace node {
 
 void test_all();
 
-void test_001();
-void test_002();
+void test_901();
+void test_902();
 
 }}}}
 
