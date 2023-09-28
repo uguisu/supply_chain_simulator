@@ -28,7 +28,7 @@ void test_all()
 
 void test_001()
 {
-    // // declare ScsConfig object
+    // declare ScsConfig object
     scs::entity::ScsConfig config;
 
     std::string testJsonFile = "../docs/config_example.json";
