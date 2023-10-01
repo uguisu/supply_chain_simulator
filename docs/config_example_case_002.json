@@ -1,0 +1,244 @@
+{
+    "lo": [
+        {
+            "path": "(n_1, n_3)",
+            "func_list": [
+                {
+                    "item_id": "A",
+                    "func_id": "lo_func_001"
+                }
+            ]
+        },
+        {
+            "path": "(n_2, n_3)",
+            "func_list": [
+                {
+                    "item_id": "B",
+                    "func_id": "lo_func_002"
+                }
+            ]
+        },
+        {
+            "path": "(n_3, n_4)",
+            "func_list": [
+                {
+                    "item_id": "C",
+                    "func_id": "lo_func_003"
+                }
+            ]
+        }
+    ],
+    "ls": [
+        {
+            "path": "(n_1, n_3)",
+            "func_list": [
+                {
+                    "item_id": "A",
+                    "func_id": "ls_func_001"
+                }
+            ]
+        },
+        {
+            "path": "(n_2, n_3)",
+            "func_list": [
+                {
+                    "item_id": "B",
+                    "func_id": "ls_func_002"
+                }
+            ]
+        },
+        {
+            "path": "(n_3, n_4)",
+            "func_list": [
+                {
+                    "item_id": "C",
+                    "func_id": "ls_func_003"
+                }
+            ]
+        }
+    ],
+    "formula": [
+        {
+            "node_id": "n_3",
+            "manufacture": [
+                {
+                    "item_id": "C",
+                    "process_time": 2.1,
+                    "component_list": [
+                        {
+                            "item_id": "A",
+                            "materials": 1.0
+                        },
+                        {
+                            "item_id": "B",
+                            "materials": 2.0
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "edges": [
+        {
+            "path": "(n_1, n_3)",
+            "items": ["A"]
+        },
+        {
+            "path": "(n_2, n_3)",
+            "items": ["B"]
+        },
+        {
+            "path": "(n_3, n_4)",
+            "items": ["C"]
+        }
+    ],
+    "holding_cost": [
+        {
+            "node_id": "n_1",
+            "func_list": [
+                {
+                    "item_id": "A",
+                    "func_id": "hc_func_001"
+                }
+            ]
+        },
+        {
+            "node_id": "n_2",
+            "func_list": [
+                {
+                    "item_id": "B",
+                    "func_id": "hc_func_002"
+                }
+            ]
+        },
+        {
+            "node_id": "n_3",
+            "func_list": [
+                {
+                    "item_id": "A",
+                    "func_id": "hc_func_101"
+                },
+                {
+                    "item_id": "B",
+                    "func_id": "hc_func_102"
+                },
+                {
+                    "item_id": "C",
+                    "func_id": "hc_func_003"
+                }
+            ]
+        },
+        {
+            "node_id": "n_4",
+            "func_list": [
+                {
+                    "item_id": "C",
+                    "func_id": "hc_func_004"
+                }
+            ]
+        }
+    ],
+    "shortage_cost": [
+        {
+            "node_id": "n_1",
+            "func_list": [
+                {
+                    "item_id": "A",
+                    "func_id": "short_func_001"
+                }
+            ]
+        },
+        {
+            "node_id": "n_2",
+            "func_list": [
+                {
+                    "item_id": "B",
+                    "func_id": "short_func_002"
+                }
+            ]
+        },
+        {
+            "node_id": "n_3",
+            "func_list": [
+                {
+                    "item_id": "A",
+                    "func_id": "short_func_101"
+                },
+                {
+                    "item_id": "B",
+                    "func_id": "short_func_102"
+                },
+                {
+                    "item_id": "C",
+                    "func_id": "short_func_003"
+                }
+            ]
+        },
+        {
+            "node_id": "n_4",
+            "func_list": [
+                {
+                    "item_id": "C",
+                    "func_id": "short_func_004"
+                }
+            ]
+        }
+    ],
+    "salvage_cost": [
+        {
+            "node_id": "n_1",
+            "func_list": [
+                {
+                    "item_id": "A",
+                    "func_id": "sal_func_001"
+                }
+            ]
+        },
+        {
+            "node_id": "n_2",
+            "func_list": [
+                {
+                    "item_id": "B",
+                    "func_id": "sal_func_002"
+                }
+            ]
+        },
+        {
+            "node_id": "n_3",
+            "func_list": [
+                {
+                    "item_id": "A",
+                    "func_id": "sal_func_101"
+                },
+                {
+                    "item_id": "B",
+                    "func_id": "sal_func_102"
+                },
+                {
+                    "item_id": "C",
+                    "func_id": "sal_func_003"
+                }
+            ]
+        },
+        {
+            "node_id": "n_4",
+            "func_list": [
+                {
+                    "item_id": "C",
+                    "func_id": "sal_func_004"
+                }
+            ]
+        }
+    ],
+    "consumer": [
+        {
+            "node_id": "n_4",
+            "func_list": [
+                {
+                    "item_id": "C",
+                    "func_id": "consumer_func_004"
+                }
+            ]
+        }
+    ]
+}
