@@ -30,6 +30,10 @@ void test_all()
 
 void test_001()
 {
+
+    std::string targetNodeID = "n_1";
+    std::string targetItemID = "A";
+
     // declare ScsConfig object
     scs::entity::ScsConfig config;
 
@@ -40,7 +44,8 @@ void test_001()
     scs::entity::ScsGraph graph;
     graph.build(config);
 
-    assert(1 == graph.nodeMap.count("n_1"));
+    assert(1 == graph.nodeMap.count(targetNodeID));
+    assert(1 == graph.nodeMap[targetNodeID].itemMap.count(targetItemID));
 }
 
 void test_002()

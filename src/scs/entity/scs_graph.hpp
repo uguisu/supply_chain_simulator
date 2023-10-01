@@ -75,14 +75,16 @@ class ScsGraph
          * @param nodeId node id
          * @return ScsNode object
          */
+        // TODO use void
         const ScsNode & make_sure_node(const std::string &nodeId);
 
         /**
          * make sure target itemId exist in itemMap
-         * @param itemMap item map
+         * @param nodeId node id
          * @param itemId item id
          */
-        const ScsItem & make_sure_item(std::map<std::string, ScsItem> &itemMap, const std::string &itemId);
+        // TODO use void
+        const ScsItem & make_sure_item(const std::string &nodeId, const std::string &itemId);
 
         /**
          * split path
