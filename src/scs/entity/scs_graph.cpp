@@ -8,7 +8,7 @@
 
 #include <string>
 #include <vector>
-#include <sstream>
+// #include <sstream>
 #include <unordered_set>
 
 #include "scs_config.hpp"
@@ -156,7 +156,7 @@ void ScsGraph::_processEdge(const std::vector<ScsConfigEdge> &edge)
         for(std::string it : scsEdge.items)
         {
             ScsItem it_obj;
-            this->make_sure_item(_node.itemMap, it, it_obj);
+            this->make_sure_item(_node2.itemMap, it, it_obj);
         }
     }
 }
@@ -220,9 +220,11 @@ void ScsGraph::make_sure_item(std::map<std::string, ScsItem> &itemMap, const std
     if(itemMap.count(itemId))
     {
         // target item id already exist
-        std::stringstream sout;
-        sout << "Repeatedly defining an item: " << itemId;
-        throw std::runtime_error(sout.str());
+        // std::stringstream sout;
+        // sout << "Repeatedly defining an item: " << itemId;
+        // throw std::runtime_error(sout.str());
+
+        // TODO nothing?
     } else {
         // find undeclared item
         itemMap.insert(std::make_pair(itemId, item));

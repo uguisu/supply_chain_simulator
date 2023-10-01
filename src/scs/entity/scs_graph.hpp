@@ -20,6 +20,15 @@ namespace scs { namespace entity {
 class ScsGraph
 {
     public:
+    
+        /**
+         * node map
+         * 
+         * key: node id
+         * val: ScsNode object
+         */
+        std::map<std::string, ScsNode> nodeMap;
+
         /**
          * build graph via config
          * @param config ScsConfig object
@@ -29,14 +38,6 @@ class ScsGraph
         ~ScsGraph() {};
     
     private:
-
-        /**
-         * node map
-         * 
-         * key: node id
-         * val: ScsNode object
-         */
-        std::map<std::string, ScsNode> nodeMap;
 
         /**
          * varify graph structure
