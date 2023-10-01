@@ -66,11 +66,9 @@ void ScsGraph::_processLoLs(const std::vector<ScsConfigLoLs> &lols, const scs::e
         this->splitPath(scsLols.path, leftNodeId, rightNodeId);
 
         // left node
-        ScsNode _lnode;
+        ScsNode _lnode = this->make_sure_node(leftNodeId);
         // right node
-        ScsNode _rnode;
-        this->make_sure_node(leftNodeId, _lnode);
-        this->make_sure_node(rightNodeId, _rnode);
+        ScsNode _rnode = this->make_sure_node(rightNodeId);
 
         for(ScsConfigFunc scsFunc : scsLols.funcList)
         {
@@ -100,8 +98,7 @@ void ScsGraph::_processFormula(const std::vector<ScsConfigFormula> &formula)
     for(ScsConfigFormula scsFormula : formula)
     {
         // fetch all nodes from formula declaration
-        ScsNode _node;
-        this->make_sure_node(scsFormula.nodeId, _node);
+        ScsNode _node = this->make_sure_node(scsFormula.nodeId);
 
         // fetch all manufacture
         for(ScsConfigManufacture scsManufacture : scsFormula.manufacture)
@@ -143,16 +140,14 @@ void ScsGraph::_processEdge(const std::vector<ScsConfigEdge> &edge)
         this->splitPath(scsEdge.path, leftNodeId, rightNodeId);
 
         // left node
-        ScsNode _node;
-        this->make_sure_node(leftNodeId, _node);
+        ScsNode _node = this->make_sure_node(leftNodeId);
         for(std::string it : scsEdge.items)
         {
             ScsItem it_obj;
             this->make_sure_item(_node.itemMap, it, it_obj);
         }
         // right node
-        ScsNode _node2;
-        this->make_sure_node(rightNodeId, _node2);
+        ScsNode _node2 = this->make_sure_node(rightNodeId);
         for(std::string it : scsEdge.items)
         {
             ScsItem it_obj;
@@ -171,8 +166,7 @@ void ScsGraph::_processCost(const std::vector<ScsConfigCost> &cost, const scs::e
     for(ScsConfigCost scsCost : cost)
     {
         // fetch all nodes from cost declaration
-        ScsNode _node;
-        this->make_sure_node(scsCost.nodeId, _node);
+        ScsNode _node = this->make_sure_node(scsCost.nodeId);
 
         for(ScsConfigFunc scsFunc : scsCost.funcList)
         {
@@ -196,17 +190,24 @@ void ScsGraph::_processCost(const std::vector<ScsConfigCost> &cost, const scs::e
 /**
  * make sure target nodeId exist in nodeMap
  * @param nodeId node id
- * @param node ScsNode object
+ * @return ScsNode object
  */
-void ScsGraph::make_sure_node(const std::string &nodeId, ScsNode &node)
+const ScsNode & ScsGraph::make_sure_node(const std::string &nodeId)
 {
+    ScsNode *rtn;
+
     if(this->nodeMap.count(nodeId))
     {
-        node = this->nodeMap[nodeId];
+        rtn = &(this->nodeMap[nodeId]);
     } else {
+
         // find new node
-        this->nodeMap.insert(std::make_pair(nodeId, node));
+        rtn = new ScsNode;
+        (*rtn).id = nodeId;
+        this->nodeMap.insert(std::make_pair(nodeId, (*rtn)));
     }
+
+    return *rtn;
 }
 
 /**
@@ -215,18 +216,15 @@ void ScsGraph::make_sure_node(const std::string &nodeId, ScsNode &node)
  * @param itemId item id
  * @param item ScsItem object
  */
-void ScsGraph::make_sure_item(std::map<std::string, ScsItem> &itemMap, const std::string &itemId, const ScsItem &item)
+void ScsGraph::make_sure_item(std::map<std::string, ScsItem> &itemMap, const std::string &itemId, ScsItem &item)
 {
     if(itemMap.count(itemId))
     {
         // target item id already exist
-        // std::stringstream sout;
-        // sout << "Repeatedly defining an item: " << itemId;
-        // throw std::runtime_error(sout.str());
-
-        // TODO nothing?
+        item = itemMap[itemId];
     } else {
         // find undeclared item
+        item.id = itemId;
         itemMap.insert(std::make_pair(itemId, item));
     }
 }

@@ -73,9 +73,9 @@ class ScsGraph
         /**
          * make sure target nodeId exist in nodeMap
          * @param nodeId node id
-         * @param node ScsNode object
+         * @return ScsNode object
          */
-        void make_sure_node(const std::string &nodeId, ScsNode &node);
+        const ScsNode & make_sure_node(const std::string &nodeId);
 
         /**
          * make sure target itemId exist in itemMap
@@ -84,6 +84,17 @@ class ScsGraph
          * @param item ScsItem object
          */
         void make_sure_item(
+            std::map<std::string, ScsItem> &itemMap,
+            const std::string &itemId,
+            ScsItem &item);
+
+        /**
+         * make sure target itemId exist in itemMap
+         * @param itemMap item map
+         * @param itemId item id
+         * @param item ScsItem object
+         */
+        ScsItem & make_sure_item(
             std::map<std::string, ScsItem> &itemMap,
             const std::string &itemId,
             const ScsItem &item);
