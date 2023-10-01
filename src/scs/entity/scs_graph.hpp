@@ -73,10 +73,8 @@ class ScsGraph
         /**
          * make sure target nodeId exist in nodeMap
          * @param nodeId node id
-         * @return ScsNode object
          */
-        // TODO use void
-        const ScsNode & make_sure_node(const std::string &nodeId);
+        void make_sure_node(const std::string &nodeId);
 
         /**
          * make sure target itemId exist in itemMap
@@ -85,6 +83,13 @@ class ScsGraph
          */
         // TODO use void
         const ScsItem & make_sure_item(const std::string &nodeId, const std::string &itemId);
+
+        /**
+         * make sure target manufacture exist in manufactureMap
+         * @param nodeId node id
+         * @param manuF ScsConfigManufacture object
+         */
+        void make_sure_manufacture(const std::string &nodeId, const ScsConfigManufacture &manuF);
 
         /**
          * split path

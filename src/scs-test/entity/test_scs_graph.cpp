@@ -50,7 +50,42 @@ void test_001()
 
 void test_002()
 {
+    std::string targetNodeID_1 = "n_1";
+    std::string targetNodeID_2 = "n_2";
+    std::string targetNodeID_3 = "n_3";
+    std::string targetNodeID_4 = "n_4";
+    std::string targetItemID_A = "A";
+    std::string targetItemID_B = "B";
+    std::string targetItemID_C = "C";
 
+    // declare ScsConfig object
+    scs::entity::ScsConfig config;
+
+    std::string testJsonFile = "../docs/config_example_case_002.json";
+
+    config.read(testJsonFile);
+
+    scs::entity::ScsGraph graph;
+    graph.build(config);
+
+    assert(1 == graph.nodeMap.count(targetNodeID_1));
+    assert(1 == graph.nodeMap[targetNodeID_1].itemMap.count(targetItemID_A));
+    assert(0 == graph.nodeMap[targetNodeID_1].manufactureMap.count(targetItemID_A));
+
+    assert(1 == graph.nodeMap.count(targetNodeID_2));
+    assert(1 == graph.nodeMap[targetNodeID_2].itemMap.count(targetItemID_B));
+    assert(0 == graph.nodeMap[targetNodeID_2].manufactureMap.count(targetItemID_B));
+
+    assert(1 == graph.nodeMap.count(targetNodeID_3));
+    assert(3 == graph.nodeMap[targetNodeID_3].itemMap.size());
+    assert(1 == graph.nodeMap[targetNodeID_3].itemMap.count(targetItemID_A));
+    assert(1 == graph.nodeMap[targetNodeID_3].itemMap.count(targetItemID_B));
+    assert(1 == graph.nodeMap[targetNodeID_3].itemMap.count(targetItemID_C));
+    assert(1 == graph.nodeMap[targetNodeID_3].manufactureMap.count(targetItemID_C));
+
+    assert(1 == graph.nodeMap.count(targetNodeID_4));
+    assert(1 == graph.nodeMap[targetNodeID_4].itemMap.count(targetItemID_C));
+    assert(0 == graph.nodeMap[targetNodeID_4].manufactureMap.count(targetItemID_C));
 }
 
 }}}}
