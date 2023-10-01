@@ -8,6 +8,8 @@
 
 namespace scs { namespace test { namespace entity { namespace config {
 
+void test_all();
+
 void test_001();
 
 }}}}

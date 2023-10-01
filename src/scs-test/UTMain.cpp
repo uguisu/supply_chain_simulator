@@ -72,7 +72,7 @@ int main(int argc, char *argv[])
     LOG(INFO) << programName;
 
     // run tese
-    scs::test::entity::config::test_001();
+    scs::test::entity::config::test_all();
     scs::test::entity::node::test_all();
 
     // output all logs
