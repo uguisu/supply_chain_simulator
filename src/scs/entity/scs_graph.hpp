@@ -81,23 +81,8 @@ class ScsGraph
          * make sure target itemId exist in itemMap
          * @param itemMap item map
          * @param itemId item id
-         * @param item ScsItem object
          */
-        void make_sure_item(
-            std::map<std::string, ScsItem> &itemMap,
-            const std::string &itemId,
-            ScsItem &item);
-
-        /**
-         * make sure target itemId exist in itemMap
-         * @param itemMap item map
-         * @param itemId item id
-         * @param item ScsItem object
-         */
-        ScsItem & make_sure_item(
-            std::map<std::string, ScsItem> &itemMap,
-            const std::string &itemId,
-            const ScsItem &item);
+        const ScsItem & make_sure_item(std::map<std::string, ScsItem> &itemMap, const std::string &itemId);
 
         /**
          * split path

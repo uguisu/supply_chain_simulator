@@ -112,14 +112,12 @@ void ScsGraph::_processFormula(const std::vector<ScsConfigFormula> &formula)
             }
 
             // collect item id
-            scs::entity::ScsItem it_1;
-            this->make_sure_item(_node.itemMap, scsManufacture.itemId, it_1);
+            this->make_sure_item(_node.itemMap, scsManufacture.itemId);
 
             for(ScsConfigComponent scsComp : scsManufacture.componentList)
             {
                 // collect production raw material
-                scs::entity::ScsItem it_2;
-                this->make_sure_item(_node.itemMap, scsComp.itemId, it_2);
+                this->make_sure_item(_node.itemMap, scsComp.itemId);
             }
         }
     }
@@ -143,15 +141,13 @@ void ScsGraph::_processEdge(const std::vector<ScsConfigEdge> &edge)
         ScsNode _node = this->make_sure_node(leftNodeId);
         for(std::string it : scsEdge.items)
         {
-            ScsItem it_obj;
-            this->make_sure_item(_node.itemMap, it, it_obj);
+            this->make_sure_item(_node.itemMap, it);
         }
         // right node
         ScsNode _node2 = this->make_sure_node(rightNodeId);
         for(std::string it : scsEdge.items)
         {
-            ScsItem it_obj;
-            this->make_sure_item(_node2.itemMap, it, it_obj);
+            this->make_sure_item(_node2.itemMap, it);
         }
     }
 }
@@ -171,8 +167,7 @@ void ScsGraph::_processCost(const std::vector<ScsConfigCost> &cost, const scs::e
         for(ScsConfigFunc scsFunc : scsCost.funcList)
         {
             // item
-            ScsItem it_obj;
-            this->make_sure_item(_node.itemMap, scsFunc.itemId, it_obj);
+            ScsItem it_obj = this->make_sure_item(_node.itemMap, scsFunc.itemId);
 
             // function
             if(it_obj.functionMap.count(costType))
@@ -214,19 +209,23 @@ const ScsNode & ScsGraph::make_sure_node(const std::string &nodeId)
  * make sure target itemId exist in itemMap
  * @param itemMap item map
  * @param itemId item id
- * @param item ScsItem object
  */
-void ScsGraph::make_sure_item(std::map<std::string, ScsItem> &itemMap, const std::string &itemId, ScsItem &item)
+const ScsItem & ScsGraph::make_sure_item(std::map<std::string, ScsItem> &itemMap, const std::string &itemId)
 {
+    ScsItem *rtn;
+
     if(itemMap.count(itemId))
     {
         // target item id already exist
-        item = itemMap[itemId];
+        rtn = &(itemMap[itemId]);
     } else {
         // find undeclared item
-        item.id = itemId;
-        itemMap.insert(std::make_pair(itemId, item));
+        rtn = new ScsItem;
+        (*rtn).id = itemId;
+        itemMap.insert(std::make_pair(itemId, (*rtn)));
     }
+
+    return *rtn;
 }
 
 /**
