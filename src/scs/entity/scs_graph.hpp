@@ -25,9 +25,9 @@ class ScsGraph
          * node map
          * 
          * key: node id
-         * val: ScsNode object
+         * val: point of ScsNode object
          */
-        std::map<std::string, ScsNode> nodeMap;
+        std::map<std::string, ScsNode *> nodeMap;
 
         /**
          * build graph via config
@@ -73,23 +73,25 @@ class ScsGraph
         /**
          * make sure target nodeId exist in nodeMap
          * @param nodeId node id
+         * @return point of ScsNode object
          */
-        void make_sure_node(const std::string &nodeId);
+        ScsNode * make_sure_node(const std::string &nodeId);
 
         /**
          * make sure target itemId exist in itemMap
-         * @param nodeId node id
+         * @param p_node point of ScsNode object
          * @param itemId item id
+         * @return point of ScsItem object
          */
-        // TODO use void
-        const ScsItem & make_sure_item(const std::string &nodeId, const std::string &itemId);
+        ScsItem * make_sure_item(ScsNode *p_node, const std::string &itemId);
 
         /**
          * make sure target manufacture exist in manufactureMap
-         * @param nodeId node id
+         * @param p_node point of ScsNode object
          * @param manuF ScsConfigManufacture object
+         * @return point of ScsConfigManufacture object
          */
-        void make_sure_manufacture(const std::string &nodeId, const ScsConfigManufacture &manuF);
+        ScsConfigManufacture * make_sure_manufacture(ScsNode *p_node, const ScsConfigManufacture &manuF);
 
         /**
          * split path

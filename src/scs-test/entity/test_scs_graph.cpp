@@ -45,7 +45,7 @@ void test_001()
     graph.build(config);
 
     assert(1 == graph.nodeMap.count(targetNodeID));
-    assert(1 == graph.nodeMap[targetNodeID].itemMap.count(targetItemID));
+    assert(1 == (*graph.nodeMap[targetNodeID]).itemMap.count(targetItemID));
 }
 
 void test_002()
@@ -68,24 +68,31 @@ void test_002()
     scs::entity::ScsGraph graph;
     graph.build(config);
 
+    // declare work variable
+    scs::entity::ScsNode *wrk_node;
+
     assert(1 == graph.nodeMap.count(targetNodeID_1));
-    assert(1 == graph.nodeMap[targetNodeID_1].itemMap.count(targetItemID_A));
-    assert(0 == graph.nodeMap[targetNodeID_1].manufactureMap.count(targetItemID_A));
+    wrk_node = graph.nodeMap[targetNodeID_1];
+    assert(1 == (*wrk_node).itemMap.count(targetItemID_A));
+    assert(0 == (*wrk_node).manufactureMap.count(targetItemID_A));
 
     assert(1 == graph.nodeMap.count(targetNodeID_2));
-    assert(1 == graph.nodeMap[targetNodeID_2].itemMap.count(targetItemID_B));
-    assert(0 == graph.nodeMap[targetNodeID_2].manufactureMap.count(targetItemID_B));
+    wrk_node = graph.nodeMap[targetNodeID_2];
+    assert(1 == (*wrk_node).itemMap.count(targetItemID_B));
+    assert(0 == (*wrk_node).manufactureMap.count(targetItemID_B));
 
     assert(1 == graph.nodeMap.count(targetNodeID_3));
-    assert(3 == graph.nodeMap[targetNodeID_3].itemMap.size());
-    assert(1 == graph.nodeMap[targetNodeID_3].itemMap.count(targetItemID_A));
-    assert(1 == graph.nodeMap[targetNodeID_3].itemMap.count(targetItemID_B));
-    assert(1 == graph.nodeMap[targetNodeID_3].itemMap.count(targetItemID_C));
-    assert(1 == graph.nodeMap[targetNodeID_3].manufactureMap.count(targetItemID_C));
+    wrk_node = graph.nodeMap[targetNodeID_3];
+    assert(3 == (*wrk_node).itemMap.size());
+    assert(1 == (*wrk_node).itemMap.count(targetItemID_A));
+    assert(1 == (*wrk_node).itemMap.count(targetItemID_B));
+    assert(1 == (*wrk_node).itemMap.count(targetItemID_C));
+    assert(1 == (*wrk_node).manufactureMap.count(targetItemID_C));
 
     assert(1 == graph.nodeMap.count(targetNodeID_4));
-    assert(1 == graph.nodeMap[targetNodeID_4].itemMap.count(targetItemID_C));
-    assert(0 == graph.nodeMap[targetNodeID_4].manufactureMap.count(targetItemID_C));
+    wrk_node = graph.nodeMap[targetNodeID_4];
+    assert(1 == (*wrk_node).itemMap.count(targetItemID_C));
+    assert(0 == (*wrk_node).manufactureMap.count(targetItemID_C));
 }
 
 }}}}

@@ -166,6 +166,15 @@ namespace scs { namespace entity {
     }
 
     /**
+     * ScsConfigComponent - clone construct
+     */
+    ScsConfigComponent::ScsConfigComponent(const ScsConfigComponent &original)
+    {
+        this->itemId = original.itemId;
+        this->materials = original.materials;
+    }
+
+    /**
      * setup value
      */
     void ScsConfigManufacture::from_json(const json &jsonObject)
@@ -178,6 +187,23 @@ namespace scs { namespace entity {
             ScsConfigComponent scc;
             scc.from_json(cl_item);
             this->componentList.push_back(scc);
+        }
+    }
+
+    /**
+     * ScsConfigManufacture - construct
+     */
+    ScsConfigManufacture::ScsConfigManufacture(const ScsConfigManufacture &original)
+    {
+        this->itemId = original.itemId;
+        this->processTime = original.processTime;
+
+        // clone all ScsConfigComponent object
+        ScsConfigComponent *p_com;
+        for(ScsConfigComponent scsCom : original.componentList)
+        {
+            p_com = new ScsConfigComponent(scsCom);
+            this->componentList.push_back((*p_com));
         }
     }
 

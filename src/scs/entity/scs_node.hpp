@@ -83,12 +83,12 @@ class ScsNode
          * key: item_id
          * val: ScsConfigManufacture object
          */
-        std::map<std::string, ScsConfigManufacture> manufactureMap;
+        std::map<std::string, ScsConfigManufacture *> manufactureMap;
 
         /**
          * items that stored in local node
          */
-        std::map<std::string, ScsItem> itemMap;
+        std::map<std::string, ScsItem *> itemMap;
 
 
 

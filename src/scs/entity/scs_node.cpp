@@ -40,7 +40,19 @@ namespace scs { namespace entity {
     }
 
     ScsNode::~ScsNode()
-    {}
+    {
+        // delete point map "manufactureMap"
+        for(auto wrk_pair : this->manufactureMap)
+        {
+            delete wrk_pair.second;
+        }
+        
+        // delete point map "itemMap"
+        for(auto wrk_pair : this->itemMap)
+        {
+            delete wrk_pair.second;
+        }
+    }
 
     ScsEdge::~ScsEdge()
     {}
