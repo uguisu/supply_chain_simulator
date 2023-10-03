@@ -68,14 +68,14 @@ class ScsNode
         std::string id = "";
 
         /**
-         * input edge list
+         * input edge map
          */
-        std::vector<ScsEdge> inputEdgeList;
+        std::map<std::string, ScsEdge *> inputEdgeMap;
 
         /**
-         * output edge list
+         * output edge map
          */
-        std::vector<ScsEdge> outputEdgeList;
+        std::map<std::string, ScsEdge *> outputEdgeMap;
 
         /**
          * manufacture map
