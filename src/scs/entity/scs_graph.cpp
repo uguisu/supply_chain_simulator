@@ -105,15 +105,14 @@ void ScsGraph::_processFormula(const std::vector<ScsConfigFormula> &formula)
             // save manufacture info
             ScsConfigManufacture *scsManufacture = this->make_sure_manufacture(p_node, scsFormula);
 
-            // TODO
-            // // collect item id
-            // this->make_sure_item(scsFormula.nodeId, scsManufacture.itemId);
+            // collect item id
+            this->make_sure_item(p_node, (*scsManufacture).itemId);
 
-            // for(ScsConfigComponent scsComp : scsManufacture.componentList)
-            // {
-            //     // collect production raw material
-            //     this->make_sure_item(scsFormula.nodeId, scsComp.itemId);
-            // }
+            for(ScsConfigComponent scsComp : (*scsManufacture).componentList)
+            {
+                // collect production raw material
+                this->make_sure_item(p_node, scsComp.itemId);
+            }
         }
     }
 }
