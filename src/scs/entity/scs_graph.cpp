@@ -47,6 +47,9 @@ void ScsGraph::build(const scs::entity::ScsConfig &config)
 
     // Field: consumer
     this->_processCost(config.consumer, scs::enums::CostType::Consumer);
+
+    // verify
+    this->verify();
 }
 
 /**
@@ -249,6 +252,14 @@ ScsConfigManufacture * ScsGraph::make_sure_manufacture(ScsNode *p_node, const Sc
 void ScsGraph::verify()
 {
     // TODO verify()
+}
+
+/**
+ * generate report
+ */
+void ScsGraph::report()
+{
+    // TODO report
 }
 
 /**

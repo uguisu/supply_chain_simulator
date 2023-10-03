@@ -100,6 +100,11 @@ class ScsGraph
          * @param rightP right path
          */
         void splitPath(const std::string &path, std::string &leftP, std::string &rightP);
+
+        /**
+         * generate report
+         */
+        void report();
 };
 
 
