@@ -68,14 +68,14 @@ class ScsNode
         std::string id = "";
 
         /**
-         * input edge list
+         * input edge map
          */
-        std::vector<ScsEdge> inputEdgeList;
+        std::map<std::string, ScsEdge *> inputEdgeMap;
 
         /**
-         * output edge list
+         * output edge map
          */
-        std::vector<ScsEdge> outputEdgeList;
+        std::map<std::string, ScsEdge *> outputEdgeMap;
 
         /**
          * manufacture map
@@ -83,12 +83,12 @@ class ScsNode
          * key: item_id
          * val: ScsConfigManufacture object
          */
-        std::map<std::string, ScsConfigManufacture> manufactureMap;
+        std::map<std::string, ScsConfigManufacture *> manufactureMap;
 
         /**
          * items that stored in local node
          */
-        std::map<std::string, ScsItem> itemMap;
+        std::map<std::string, ScsItem *> itemMap;
 
 
 

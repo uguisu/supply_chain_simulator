@@ -20,23 +20,38 @@ namespace scs { namespace entity {
 class ScsGraph
 {
     public:
+    
+        /**
+         * node map
+         * 
+         * key: node id
+         * val: point of ScsNode object
+         */
+        std::map<std::string, ScsNode *> nodeMap;
+
+        /**
+         * edge map
+         * 
+         * key: edge id
+         * val: point of ScsEdge object
+         */
+        std::map<std::string, ScsEdge *> edgeMap;
+
         /**
          * build graph via config
          * @param config ScsConfig object
          */
         void build(const scs::entity::ScsConfig &config);
 
-        ~ScsGraph() {};
+        /**
+         * generate report
+         * @return report as string
+         */
+        std::string report();
+
+        ~ScsGraph();
     
     private:
-
-        /**
-         * node map
-         * 
-         * key: node id
-         * val: ScsNode object
-         */
-        std::map<std::string, ScsNode> nodeMap;
 
         /**
          * varify graph structure
@@ -72,20 +87,32 @@ class ScsGraph
         /**
          * make sure target nodeId exist in nodeMap
          * @param nodeId node id
-         * @param node ScsNode object
+         * @return point of ScsNode object
          */
-        void make_sure_node(const std::string &nodeId, ScsNode &node);
+        ScsNode * make_sure_node(const std::string &nodeId);
 
         /**
          * make sure target itemId exist in itemMap
-         * @param itemMap item map
+         * @param p_node point of ScsNode object
          * @param itemId item id
-         * @param item ScsItem object
+         * @return point of ScsItem object
          */
-        void make_sure_item(
-            std::map<std::string, ScsItem> &itemMap,
-            const std::string &itemId,
-            const ScsItem &item);
+        ScsItem * make_sure_item(ScsNode *p_node, const std::string &itemId);
+
+        /**
+         * make sure target manufacture exist in manufactureMap
+         * @param p_node point of ScsNode object
+         * @param manuF ScsConfigManufacture object
+         * @return point of ScsConfigManufacture object
+         */
+        ScsConfigManufacture * make_sure_manufacture(ScsNode *p_node, const ScsConfigManufacture &manuF);
+
+        /**
+         * make sure target edgeId exist in edgeMap
+         * @param edgeId edge id
+         * @return point of ScsEdge object
+         */
+        ScsEdge * make_sure_edge(const std::string &edgeId);
 
         /**
          * split path
@@ -94,6 +121,29 @@ class ScsGraph
          * @param rightP right path
          */
         void splitPath(const std::string &path, std::string &leftP, std::string &rightP);
+
+        /**
+         * generate edge id
+         * @param leftNodeId left node id
+         * @param rightNodeId right node id
+         * @param itemId item id
+         * @return edge id
+         */
+        std::string generate_edge_id(
+            const std::string &leftNodeId,
+            const std::string &rightNodeId,
+            const std::string &itemId);
+
+        /**
+         * make sure target edge saved in node
+         * @param p_node point of ScsNode object
+         * @param p_edge point of ScsEdge object
+         * @param nodeEdgeType NodeEdgeType object
+         */
+        void make_sure_node_edge(
+            ScsNode *p_node,
+            ScsEdge *p_edge,
+            const scs::enums::NodeEdgeType &nodeEdgeType);
 };
 
 

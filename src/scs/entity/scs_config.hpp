@@ -112,6 +112,16 @@ class ScsConfigComponent
         float materials;
 
         /**
+         * ScsConfigComponent - default construct
+         */
+        ScsConfigComponent() {};
+
+        /**
+         * ScsConfigComponent - clone construct
+         */
+        ScsConfigComponent(const ScsConfigComponent &original);
+
+        /**
          * setup value
          */
         void from_json(const json &jsonObject);
@@ -133,6 +143,16 @@ class ScsConfigManufacture
          * setup value
          */
         void from_json(const json &jsonObject);
+
+        /**
+         * ScsConfigManufacture - default construct
+         */
+        ScsConfigManufacture() {};
+
+        /**
+         * ScsConfigManufacture - clone construct
+         */
+        ScsConfigManufacture(const ScsConfigManufacture &original);
 
         ~ScsConfigManufacture() {};
 };

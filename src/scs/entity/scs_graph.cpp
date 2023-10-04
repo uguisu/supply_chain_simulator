@@ -8,8 +8,8 @@
 
 #include <string>
 #include <vector>
-#include <sstream>
 #include <unordered_set>
+#include <sstream>
 
 #include "scs_config.hpp"
 #include "scs_node.hpp"
@@ -48,6 +48,9 @@ void ScsGraph::build(const scs::entity::ScsConfig &config)
 
     // Field: consumer
     this->_processCost(config.consumer, scs::enums::CostType::Consumer);
+
+    // verify
+    this->verify();
 }
 
 /**
@@ -66,27 +69,35 @@ void ScsGraph::_processLoLs(const std::vector<ScsConfigLoLs> &lols, const scs::e
         this->splitPath(scsLols.path, leftNodeId, rightNodeId);
 
         // left node
-        ScsNode _lnode;
+        ScsNode * p_leftNode = this->make_sure_node(leftNodeId);
         // right node
-        ScsNode _rnode;
-        this->make_sure_node(leftNodeId, _lnode);
-        this->make_sure_node(rightNodeId, _rnode);
+        ScsNode * p_rightNode = this->make_sure_node(rightNodeId);
 
         for(ScsConfigFunc scsFunc : scsLols.funcList)
         {
-            ScsEdge _edge;
-            _edge.fromNodeId = leftNodeId;
-            _edge.toNodeId = rightNodeId;
-            _edge.itemId = scsFunc.itemId;
+            // genearte edge id
+            std::string edgeId = this->generate_edge_id(leftNodeId, rightNodeId, scsFunc.itemId);
+            ScsEdge * p_edge = this->make_sure_edge(edgeId);
+
+            // edit edge object
+            (*p_edge).fromNodeId = leftNodeId;
+            (*p_edge).toNodeId = rightNodeId;
+            (*p_edge).itemId = scsFunc.itemId;
 
             if(costType == scs::enums::CostType::Order)
             {
-                _edge.loFuncId = scsFunc.funcId;
+                (*p_edge).loFuncId = scsFunc.funcId;
             }
             if(costType == scs::enums::CostType::Shipment)
             {
-                _edge.lsFuncId = scsFunc.funcId;
+                (*p_edge).lsFuncId = scsFunc.funcId;
             }
+
+            // edit node's edge map
+            this->make_sure_node_edge(
+                p_leftNode, p_edge, scs::enums::NodeEdgeType::Left);
+            this->make_sure_node_edge(
+                p_rightNode, p_edge, scs::enums::NodeEdgeType::Right);
         }
     }
 }
@@ -100,29 +111,21 @@ void ScsGraph::_processFormula(const std::vector<ScsConfigFormula> &formula)
     for(ScsConfigFormula scsFormula : formula)
     {
         // fetch all nodes from formula declaration
-        ScsNode _node;
-        this->make_sure_node(scsFormula.nodeId, _node);
+        ScsNode *p_node = this->make_sure_node(scsFormula.nodeId);
 
         // fetch all manufacture
-        for(ScsConfigManufacture scsManufacture : scsFormula.manufacture)
+        for(ScsConfigManufacture scsFormula : scsFormula.manufacture)
         {
-            if(_node.manufactureMap.count(scsManufacture.itemId))
-            {
-                // find new manufacture
-                _node.manufactureMap.insert(std::make_pair(scsManufacture.itemId, scsManufacture));
-            } else {
-                // TODO manufacture已经被注册过了, throw error
-            }
+            // save manufacture info
+            ScsConfigManufacture *scsManufacture = this->make_sure_manufacture(p_node, scsFormula);
 
             // collect item id
-            scs::entity::ScsItem it_1;
-            this->make_sure_item(_node.itemMap, scsManufacture.itemId, it_1);
+            this->make_sure_item(p_node, (*scsManufacture).itemId);
 
-            for(ScsConfigComponent scsComp : scsManufacture.componentList)
+            for(ScsConfigComponent scsComp : (*scsManufacture).componentList)
             {
                 // collect production raw material
-                scs::entity::ScsItem it_2;
-                this->make_sure_item(_node.itemMap, scsComp.itemId, it_2);
+                this->make_sure_item(p_node, scsComp.itemId);
             }
         }
     }
@@ -136,6 +139,7 @@ void ScsGraph::_processEdge(const std::vector<ScsConfigEdge> &edge)
 {
     std::string leftNodeId = "";
     std::string rightNodeId = "";
+    std::string edgeId = "";
 
     for(ScsConfigEdge scsEdge : edge)
     {
@@ -143,20 +147,31 @@ void ScsGraph::_processEdge(const std::vector<ScsConfigEdge> &edge)
         this->splitPath(scsEdge.path, leftNodeId, rightNodeId);
 
         // left node
-        ScsNode _node;
-        this->make_sure_node(leftNodeId, _node);
-        for(std::string it : scsEdge.items)
-        {
-            ScsItem it_obj;
-            this->make_sure_item(_node.itemMap, it, it_obj);
-        }
+        ScsNode *p_leftNode = this->make_sure_node(leftNodeId);
         // right node
-        ScsNode _node2;
-        this->make_sure_node(rightNodeId, _node2);
+        ScsNode *p_rightNode = this->make_sure_node(rightNodeId);
+
         for(std::string it : scsEdge.items)
         {
-            ScsItem it_obj;
-            this->make_sure_item(_node.itemMap, it, it_obj);
+            // make sure item
+            this->make_sure_item(p_leftNode, it);
+            this->make_sure_item(p_rightNode, it);
+
+            // genearte edge id
+            edgeId = this->generate_edge_id(leftNodeId, rightNodeId, it);
+
+            ScsEdge * p_edge = this->make_sure_edge(edgeId);
+            // edit edge obbject
+            (*p_edge).fromNodeId = leftNodeId;
+            (*p_edge).toNodeId = rightNodeId;
+            (*p_edge).itemId = it;
+            // no need to edit lo/ls here
+
+            // edit node's edge map
+            this->make_sure_node_edge(
+                p_leftNode, p_edge, scs::enums::NodeEdgeType::Left);
+            this->make_sure_node_edge(
+                p_rightNode, p_edge, scs::enums::NodeEdgeType::Right);
         }
     }
 }
@@ -171,23 +186,21 @@ void ScsGraph::_processCost(const std::vector<ScsConfigCost> &cost, const scs::e
     for(ScsConfigCost scsCost : cost)
     {
         // fetch all nodes from cost declaration
-        ScsNode _node;
-        this->make_sure_node(scsCost.nodeId, _node);
+        ScsNode *p_node = this->make_sure_node(scsCost.nodeId);
 
         for(ScsConfigFunc scsFunc : scsCost.funcList)
         {
             // item
-            ScsItem it_obj;
-            this->make_sure_item(_node.itemMap, scsFunc.itemId, it_obj);
+            ScsItem * it_obj = this->make_sure_item(p_node, scsFunc.itemId);
 
             // function
-            if(it_obj.functionMap.count(costType))
+            if((*it_obj).functionMap.count(costType))
             {
-                it_obj.functionMap[costType].insert(scsFunc.funcId);
+                (*it_obj).functionMap[costType].insert(scsFunc.funcId);
             } else {
                 std::unordered_set<std::string> funcSet;
                 funcSet.insert(scsFunc.funcId);
-                it_obj.functionMap[costType] = funcSet;
+                (*it_obj).functionMap[costType] = funcSet;
             }
         }
     }
@@ -196,37 +209,90 @@ void ScsGraph::_processCost(const std::vector<ScsConfigCost> &cost, const scs::e
 /**
  * make sure target nodeId exist in nodeMap
  * @param nodeId node id
- * @param node ScsNode object
+ * @return point of ScsNode object
  */
-void ScsGraph::make_sure_node(const std::string &nodeId, ScsNode &node)
+ScsNode * ScsGraph::make_sure_node(const std::string &nodeId)
 {
+    ScsNode *rtn;
     if(this->nodeMap.count(nodeId))
     {
-        node = this->nodeMap[nodeId];
+        // target node id already exist
+        rtn = this->nodeMap[nodeId];
     } else {
         // find new node
-        this->nodeMap.insert(std::make_pair(nodeId, node));
+        rtn = new ScsNode();
+        (*rtn).id = nodeId;
+        this->nodeMap.insert(std::make_pair(nodeId, rtn));
     }
+
+    return rtn;
 }
 
 /**
  * make sure target itemId exist in itemMap
- * @param itemMap item map
+ * @param p_node point of ScsNode object
  * @param itemId item id
- * @param item ScsItem object
+ * @return point of ScsItem object
  */
-void ScsGraph::make_sure_item(std::map<std::string, ScsItem> &itemMap, const std::string &itemId, const ScsItem &item)
+ScsItem * ScsGraph::make_sure_item(ScsNode *p_node, const std::string &itemId)
 {
-    if(itemMap.count(itemId))
+    ScsItem *rtn;
+    if((*p_node).itemMap.count(itemId))
     {
         // target item id already exist
-        std::stringstream sout;
-        sout << "Repeatedly defining an item: " << itemId;
-        throw std::runtime_error(sout.str());
+        rtn = (*p_node).itemMap[itemId];
     } else {
         // find undeclared item
-        itemMap.insert(std::make_pair(itemId, item));
+        rtn = new ScsItem;
+        (*rtn).id = itemId;
+        (*p_node).itemMap.insert(std::make_pair(itemId, rtn));
     }
+
+    return rtn;
+}
+
+/**
+ * make sure target manufacture exist in manufactureMap
+ * @param p_node point of ScsNode object
+ * @param manuF ScsConfigManufacture object
+ * @return point of ScsConfigManufacture object
+ */
+ScsConfigManufacture * ScsGraph::make_sure_manufacture(ScsNode *p_node, const ScsConfigManufacture &manuF)
+{
+    ScsConfigManufacture *rtn;
+    if((*p_node).manufactureMap.count(manuF.itemId))
+    {
+        // target item id already exist
+        rtn = (*p_node).manufactureMap[manuF.itemId];
+    } else {
+        // find undeclared item
+        rtn = new ScsConfigManufacture(manuF);
+        (*p_node).manufactureMap.insert(std::make_pair(manuF.itemId, rtn));
+    }
+
+    return rtn;
+}
+
+/**
+ * make sure target edgeId exist in edgeMap
+ * @param edgeId edge id
+ * @return point of ScsEdge object
+ */
+ScsEdge * ScsGraph::make_sure_edge(const std::string &edgeId)
+{
+    ScsEdge *rtn;
+    if(this->edgeMap.count(edgeId))
+    {
+        // target edge id already exist
+        rtn = this->edgeMap[edgeId];
+    } else {
+        // find new edge
+        rtn = new ScsEdge();
+        (*rtn).id = edgeId;
+        this->edgeMap.insert(std::make_pair(edgeId, rtn));
+    }
+
+    return rtn;
 }
 
 /**
@@ -235,6 +301,69 @@ void ScsGraph::make_sure_item(std::map<std::string, ScsItem> &itemMap, const std
 void ScsGraph::verify()
 {
     // TODO verify()
+}
+
+/**
+ * generate report
+ * @return report as string
+ */
+std::string ScsGraph::report()
+{
+    // declare work node object
+    ScsNode * p_node;
+    // manufacture editor
+    std::stringstream ssManufacture;
+    ScsConfigComponent wrk_formula;
+    int16_t wrk_formula_amount = 0;
+
+    // calculate items
+    std::unordered_set<std::string> itemSet;
+    for(const auto wrk_pair : this->nodeMap)
+    {
+        // get node object
+        p_node = wrk_pair.second;
+
+        // go through Node
+        for(const auto wrk_pair_item : (*p_node).itemMap)
+        {
+            itemSet.insert(wrk_pair_item.first);
+        }
+
+        // go through manufacture
+        for(const auto wrk_pair_manufacture : (*p_node).manufactureMap)
+        {
+            ssManufacture << "Formula: " << (*p_node).id << " :: " << wrk_pair_manufacture.first << "\n";
+            wrk_formula_amount = wrk_pair_manufacture.second->componentList.size();
+            for(int16_t idx = wrk_formula_amount; 0 < idx; idx--)
+            {
+                if(idx == wrk_formula_amount)
+                {
+                    ssManufacture << "  - ";
+                }
+                wrk_formula = wrk_pair_manufacture.second->componentList[wrk_formula_amount - idx];
+                ssManufacture << wrk_formula.materials << " * " << wrk_formula.itemId;
+                if(1 == idx)
+                {
+                    ssManufacture << "\n";
+                } else {
+                    ssManufacture << " + ";
+                }
+            }
+        }
+    }
+
+    // declare stream
+    std::stringstream ss;
+
+    ss << "\n================== Graph Report ==================\n";
+    ss << "Total nodes: " << this->nodeMap.size() << "\n";
+    ss << "Total edges: " << this->edgeMap.size() << "\n";
+    ss << "Total items: " << itemSet.size() << "\n";
+    ss << "--------------------------------------------------\n";
+    ss << ssManufacture.str();
+    ss << "======================================== END =====\n";
+
+    return ss.str();
 }
 
 /**
@@ -263,6 +392,65 @@ void ScsGraph::splitPath(const std::string &path, std::string &leftP, std::strin
 
     leftP = _p.substr(0, splitPoint);
     rightP = _p.substr(splitPoint + 1);
+}
+
+ScsGraph::~ScsGraph()
+{
+    // delete point map "nodeMap"
+    for(auto wrk_pair : this->nodeMap)
+    {
+        delete wrk_pair.second;
+    }
+    
+    // delete point map "edgeMap"
+    for(auto wrk_pair : this->edgeMap)
+    {
+        delete wrk_pair.second;
+    }
+}
+
+/**
+ * generate edge id
+ * @param leftNodeId left node id
+ * @param rightNodeId right node id
+ * @param itemId item id
+ * @return edge id
+ */
+std::string ScsGraph::generate_edge_id(
+    const std::string &leftNodeId,
+    const std::string &rightNodeId,
+    const std::string &itemId)
+{
+    return leftNodeId + "_" + rightNodeId + "_" + itemId;
+}
+
+/**
+ * make sure target edge saved in node
+ * @param p_node point of ScsNode object
+ * @param p_edge point of ScsEdge object
+ * @param nodeEdgeType NodeEdgeType object
+ */
+void ScsGraph::make_sure_node_edge(
+    ScsNode *p_node,
+    ScsEdge *p_edge,
+    const scs::enums::NodeEdgeType &nodeEdgeType)
+{
+    std::string edgeId = (*p_edge).id;
+
+    if(scs::enums::NodeEdgeType::Right == nodeEdgeType)
+    {
+        if(0 == (*p_node).inputEdgeMap.count(edgeId))
+        {
+            (*p_node).inputEdgeMap.insert(std::make_pair(edgeId, p_edge));
+        }
+    }
+    if(scs::enums::NodeEdgeType::Left == nodeEdgeType)
+    {
+        if(0 == (*p_node).outputEdgeMap.count(edgeId))
+        {
+            (*p_node).outputEdgeMap.insert(std::make_pair(edgeId, p_edge));
+        }
+    }
 }
 
 }}

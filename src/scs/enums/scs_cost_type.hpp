@@ -23,6 +23,12 @@ enum class CostType
     Shipment = 6
 };
 
+enum class NodeEdgeType
+{
+    Left = 1,
+    Right = 2
+};
+
 }}
 
 #endif /* SCS_COST_TYPE_HPP */
