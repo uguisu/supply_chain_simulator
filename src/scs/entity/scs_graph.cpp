@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 #include <unordered_set>
+#include <sstream>
 
 #include "scs_config.hpp"
 #include "scs_node.hpp"
@@ -304,10 +305,65 @@ void ScsGraph::verify()
 
 /**
  * generate report
+ * @return report as string
  */
-void ScsGraph::report()
+std::string ScsGraph::report()
 {
-    // TODO report
+    // declare work node object
+    ScsNode * p_node;
+    // manufacture editor
+    std::stringstream ssManufacture;
+    ScsConfigComponent wrk_formula;
+    int16_t wrk_formula_amount = 0;
+
+    // calculate items
+    std::unordered_set<std::string> itemSet;
+    for(const auto wrk_pair : this->nodeMap)
+    {
+        // get node object
+        p_node = wrk_pair.second;
+
+        // go through Node
+        for(const auto wrk_pair_item : (*p_node).itemMap)
+        {
+            itemSet.insert(wrk_pair_item.first);
+        }
+
+        // go through manufacture
+        for(const auto wrk_pair_manufacture : (*p_node).manufactureMap)
+        {
+            ssManufacture << "Formula: " << (*p_node).id << " :: " << wrk_pair_manufacture.first << "\n";
+            wrk_formula_amount = wrk_pair_manufacture.second->componentList.size();
+            for(int16_t idx = wrk_formula_amount; 0 < idx; idx--)
+            {
+                if(idx == wrk_formula_amount)
+                {
+                    ssManufacture << "  - ";
+                }
+                wrk_formula = wrk_pair_manufacture.second->componentList[wrk_formula_amount - idx];
+                ssManufacture << wrk_formula.materials << " * " << wrk_formula.itemId;
+                if(1 == idx)
+                {
+                    ssManufacture << "\n";
+                } else {
+                    ssManufacture << " + ";
+                }
+            }
+        }
+    }
+
+    // declare stream
+    std::stringstream ss;
+
+    ss << "\n================== Graph Report ==================\n";
+    ss << "Total nodes: " << this->nodeMap.size() << "\n";
+    ss << "Total edges: " << this->edgeMap.size() << "\n";
+    ss << "Total items: " << itemSet.size() << "\n";
+    ss << "--------------------------------------------------\n";
+    ss << ssManufacture.str();
+    ss << "======================================== END =====\n";
+
+    return ss.str();
 }
 
 /**

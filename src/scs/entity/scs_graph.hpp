@@ -45,8 +45,9 @@ class ScsGraph
 
         /**
          * generate report
+         * @return report as string
          */
-        void report();
+        std::string report();
 
         ~ScsGraph();
     

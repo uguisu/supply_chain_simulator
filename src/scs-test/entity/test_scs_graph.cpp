@@ -68,6 +68,9 @@ void test_002()
     scs::entity::ScsGraph graph;
     graph.build(config);
 
+    // show report
+    LOG(INFO) << graph.report();
+
     // declare work variable
     scs::entity::ScsNode *wrk_node;
 
