@@ -11,6 +11,8 @@
 #include <map>
 
 #include "../core/scs_function.hpp"
+#include "scs_config.hpp"
+#include "scs_item.hpp"
 
 namespace scs { namespace entity {
 
@@ -24,25 +26,32 @@ Basic Structure:
     ┌──────────────────┐
     │       Node       │
     ├──────────────────┤
-    │ name             │
+    │ id               │
     │ inputEdgeList    │
     │ outputEdgeList   │
+    │ manufactureMap   │
+    │ itemMap          │
     └──────────────────┘
              │
     ┌──────────────────┐
     │       Edge       │
     ├──────────────────┤
-    │ name             │
-    │ inputNodeList    │
-    │ outputNodeList   │
+    │ id               │
+    │ fromNodeId       │
+    │ toNodeId         │
+    │ itemId           │
+    │ lsFuncId         │
+    │ loFuncId         │
     └──────────────────┘
              │
     ┌──────────────────┐
     │       Node       │
     ├──────────────────┤
-    │ name             │
+    │ id               │
     │ inputEdgeList    │
     │ outputEdgeList   │
+    │ manufactureMap   │
+    │ itemMap          │
     └──────────────────┘
  */
 
@@ -52,33 +61,38 @@ Basic Structure:
 class ScsNode
 {
     public:
-        /**
-         * set name
-         */
-        void setName(const std::string &name);
-        /**
-         * get name
-         */
-        std::string getName();
 
         /**
-         * set input edge list
+         * node id
          */
-        void setInputEdgeList(const std::vector<ScsEdge> &inputEdgeList);
-        /**
-         * get input edge list
-         */
-        std::vector<ScsEdge> getInputEdgeList();
+        std::string id = "";
 
         /**
-         * set output edge list
+         * input edge map
          */
-        void setOutputEdgeList(const std::vector<ScsEdge> &outputEdgeList);
-        /**
-         * get output edge list
-         */
-        std::vector<ScsEdge> getOutputEdgeList();
+        std::map<std::string, ScsEdge *> inputEdgeMap;
 
+        /**
+         * output edge map
+         */
+        std::map<std::string, ScsEdge *> outputEdgeMap;
+
+        /**
+         * manufacture map
+         * 
+         * key: item_id
+         * val: ScsConfigManufacture object
+         */
+        std::map<std::string, ScsConfigManufacture *> manufactureMap;
+
+        /**
+         * items that stored in local node
+         */
+        std::map<std::string, ScsItem *> itemMap;
+
+
+
+        // TODO 这里仅仅是一个demo
         /**
          * get function map
          */
@@ -90,60 +104,52 @@ class ScsNode
 
         ~ScsNode();
     private:
-        /** node name */
-        std::string name = "";
-
-        /** input edge list */
-        std::vector<ScsEdge> inputEdgeList;
-        /** output edge list */
-        std::vector<ScsEdge> outputEdgeList;
 
         // The holding cost of each material is stored as a function pointer in funcMap
         std::map<std::string, scs::core::Fun_ptr> funcMap;
 };
 
+/**
+ * Edge
+ */
 class ScsEdge
 {
 
     public:
-        /**
-         * set name
-         */
-        void setName(const std::string &name);
-        /**
-         * get name
-         */
-        std::string getName();
 
         /**
-         * set input node list
+         * edge id
          */
-        void setInputNodeList(const std::vector<ScsNode> &inputNodeList);
-        /**
-         * get input node list
-         */
-        std::vector<ScsNode> getInputNodeList();
+        std::string id = "";
 
         /**
-         * set output node list
+         * from node id
          */
-        void setOutputNodeList(const std::vector<ScsNode> &outputNodeList);
+        std::string fromNodeId;
+
         /**
-         * get output node list
+         * to node id
          */
-        std::vector<ScsNode> getOutputNodeList();
+        std::string toNodeId;
+
+        /**
+         * item id
+         */
+        std::string itemId;
+
+        /**
+         * shipment function id
+         */
+        std::string lsFuncId;
+
+        /**
+         * order function id
+         */
+        std::string loFuncId;
 
         ~ScsEdge();
     private:
-        /** node name */
-        std::string name = "";
 
-        /** input node list */
-        std::vector<ScsNode> inputNodeList;
-        /** output node list */
-        std::vector<ScsNode> outputNodeList;
-
-        // TODO 每种物料的运输都有成本
 };
 
 }}

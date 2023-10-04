@@ -13,6 +13,7 @@
 // test case header
 #include "entity/test_scs_config.hpp"
 #include "entity/test_scs_node.hpp"
+#include "entity/test_scs_graph.hpp"
 
 // declare default flag values
 DEFINE_string(app_name, "Supply Chain Simulator", "Application name");
@@ -72,8 +73,9 @@ int main(int argc, char *argv[])
     LOG(INFO) << programName;
 
     // run tese
-    scs::test::entity::config::test_001();
+    scs::test::entity::config::test_all();
     scs::test::entity::node::test_all();
+    scs::test::entity::graph::test_all();
 
     // output all logs
     google::FlushLogFiles(google::GLOG_INFO);

@@ -1,0 +1,102 @@
+{
+    "lo": [
+        {
+            "path": "(n_1, n_2)",
+            "func_list": [
+                {
+                    "item_id": "A",
+                    "func_id": "lo_func_001"
+                }
+            ]
+        }
+    ],
+    "ls": [
+        {
+            "path": "(n_1, n_2)",
+            "func_list": [
+                {
+                    "item_id": "A",
+                    "func_id": "ls_func_001"
+                }
+            ]
+        }
+    ],
+    "formula": [],
+    "edges": [
+        {
+            "path": "(n_1, n_2)",
+            "items": ["A"]
+        }
+    ],
+    "holding_cost": [
+        {
+            "node_id": "n_1",
+            "func_list": [
+                {
+                    "item_id": "A",
+                    "func_id": "hc_func_001"
+                }
+            ]
+        },
+        {
+            "node_id": "n_2",
+            "func_list": [
+                {
+                    "item_id": "A",
+                    "func_id": "hc_func_002"
+                }
+            ]
+        }
+    ],
+    "shortage_cost": [
+        {
+            "node_id": "n_1",
+            "func_list": [
+                {
+                    "item_id": "A",
+                    "func_id": "short_func_001"
+                }
+            ]
+        },
+        {
+            "node_id": "n_2",
+            "func_list": [
+                {
+                    "item_id": "A",
+                    "func_id": "short_func_002"
+                }
+            ]
+        }
+    ],
+    "salvage_cost": [
+        {
+            "node_id": "n_1",
+            "func_list": [
+                {
+                    "item_id": "A",
+                    "func_id": "sal_func_001"
+                }
+            ]
+        },
+        {
+            "node_id": "n_2",
+            "func_list": [
+                {
+                    "item_id": "A",
+                    "func_id": "sal_func_002"
+                }
+            ]
+        }
+    ],
+    "consumer": [
+        {
+            "node_id": "n_2",
+            "func_list": [
+                {
+                    "item_id": "A",
+                    "func_id": "consumer_func_002"
+                }
+            ]
+        }
+    ]
+}

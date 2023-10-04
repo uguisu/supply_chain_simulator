@@ -16,55 +16,15 @@
 namespace scs { namespace entity {
 
     /**
-     * set name
+     * get function map
      */
-    void ScsNode::setName(const std::string &name)
-    {
-        this->name = name;
-    }
-    /**
-     * get name
-     */
-    std::string ScsNode::getName()
-    {
-        return this->name;
-    }
-
-    /**
-     * set input edge list
-     */
-    void ScsNode::setInputEdgeList(const std::vector<ScsEdge> &inputEdgeList)
-    {
-        this->inputEdgeList = inputEdgeList;
-    }
-    /**
-     * get input edge list
-     */
-    std::vector<ScsEdge> ScsNode::getInputEdgeList()
-    {
-        return this->inputEdgeList;
-    }
-
-    /**
-     * set output edge list
-     */
-    void ScsNode::setOutputEdgeList(const std::vector<ScsEdge> &outputEdgeList)
-    {
-        this->outputEdgeList = outputEdgeList;
-    }   
-    /**
-     * get output edge list
-     */
-    std::vector<ScsEdge> ScsNode::getOutputEdgeList()
-    {
-        return this->outputEdgeList;
-    }
-
-
     std::map<std::string, scs::core::Fun_ptr>& ScsNode::getFuncMap()
     {
         return this->funcMap;
     }
+    /**
+     * execute target function
+     */
     float ScsNode::execFunc(const std::string &funcName, const int16_t &val)
     {
         float rtn = 0.0;
@@ -80,51 +40,18 @@ namespace scs { namespace entity {
     }
 
     ScsNode::~ScsNode()
-    {}
-
-    /**
-     * set name
-     */
-    void ScsEdge::setName(const std::string &name)
     {
-        this->name = name;
-    }
-    /**
-     * get name
-     */
-    std::string ScsEdge::getName()
-    {
-        return this->name;
-    }
-
-    /**
-     * set input node list
-     */
-    void ScsEdge::setInputNodeList(const std::vector<ScsNode> &inputNodeList)
-    {
-        this->inputNodeList = inputNodeList;
-    }
-    /**
-     * get input node list
-     */
-    std::vector<ScsNode> ScsEdge::getInputNodeList()
-    {
-        return this->inputNodeList;
-    }
-
-    /**
-     * set output node list
-     */
-    void ScsEdge::setOutputNodeList(const std::vector<ScsNode> &outputNodeList)
-    {
-        this->outputNodeList = outputNodeList;
-    }
-    /**
-     * get output node list
-     */
-    std::vector<ScsNode> ScsEdge::getOutputNodeList()
-    {
-        return this->outputNodeList;
+        // delete point map "manufactureMap"
+        for(auto wrk_pair : this->manufactureMap)
+        {
+            delete wrk_pair.second;
+        }
+        
+        // delete point map "itemMap"
+        for(auto wrk_pair : this->itemMap)
+        {
+            delete wrk_pair.second;
+        }
     }
 
     ScsEdge::~ScsEdge()
