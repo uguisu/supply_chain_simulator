@@ -14,6 +14,7 @@
 #include "entity/test_scs_config.hpp"
 #include "entity/test_scs_node.hpp"
 #include "entity/test_scs_graph.hpp"
+#include "function/test_scs_function.hpp"
 
 // declare default flag values
 DEFINE_string(app_name, "Supply Chain Simulator", "Application name");
@@ -76,6 +77,7 @@ int main(int argc, char *argv[])
     scs::test::entity::config::test_all();
     scs::test::entity::node::test_all();
     scs::test::entity::graph::test_all();
+    scs::test::function::func::test_all();
 
     // output all logs
     google::FlushLogFiles(google::GLOG_INFO);
