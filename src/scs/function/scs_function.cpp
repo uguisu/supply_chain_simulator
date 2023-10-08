@@ -8,7 +8,7 @@
 
 #include <string>
 
-namespace scs { namespace core {
+namespace scs { namespace func {
 
     /** item 001 holding cost */
     float func_holding_cost_item_001(const int16_t &amount)
@@ -21,6 +21,21 @@ namespace scs { namespace core {
     {
         return amount * 0.5;
     }
+
+
+/**
+ * Linear
+ * 
+ * f(x) = ax + b
+ * 
+ * @param x input amount
+ * @param a paramater
+ * @param b bias
+ */
+float func_linear_001(const float &x, const float &a = 1, const float &b = 0)
+{
+    return a * x + b;
+}
 
 }}
 

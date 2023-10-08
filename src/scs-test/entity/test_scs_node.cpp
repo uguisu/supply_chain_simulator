@@ -66,13 +66,13 @@ void test_901()
 
     // store functions
     std::string name1 = "item1";
-    node.getFuncMap().insert(std::make_pair(name1, &scs::core::func_holding_cost_item_001));
+    node.getFuncMap().insert(std::make_pair(name1, &scs::func::func_holding_cost_item_001));
 
     std::string name2 = "item2";
-    node.getFuncMap().insert(std::make_pair(name2, &scs::core::func_holding_cost_item_002));
+    node.getFuncMap().insert(std::make_pair(name2, &scs::func::func_holding_cost_item_002));
 
     // check result
-    assert(scs::core::func_holding_cost_item_002(6) == node.execFunc(name2, 6));
+    assert(scs::func::func_holding_cost_item_002(6) == node.execFunc(name2, 6));
     assert(2 == node.getFuncMap().size());
 }
 
@@ -86,7 +86,7 @@ void test_902()
 
     // store functions
     std::string name1 = "item1";
-    node.getFuncMap().insert(std::make_pair(name1, &scs::core::func_holding_cost_item_001));
+    node.getFuncMap().insert(std::make_pair(name1, &scs::func::func_holding_cost_item_001));
 
     std::string name2 = "no item";
 
