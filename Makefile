@@ -7,6 +7,9 @@ BUILD_DIR := ./build
 SRC_DIRS := ./src/scs
 SRC_TEST_DIRS := ./src
 
+# specify your python version
+PYTHON_HEADER_DIR := /usr/include/python3.8
+
 # Flag for implicit rules. Turn on debug info
 CXXFLAGS = -g -std=c++11
 
@@ -27,6 +30,7 @@ _lib:
 	$(CXXFLAGS) \
 	$(SRCS) \
 	-fPIC \
+	-I $(PYTHON_HEADER_DIR) \
 	-shared \
 	-pthread \
 	-o $(BUILD_DIR)/libscs.so
@@ -42,6 +46,7 @@ _test:
 	$(SRCS_TEST) \
 	-l glog \
 	-l gflags \
+	-I $(PYTHON_HEADER_DIR) \
 	-pthread \
 	-o $(BUILD_DIR)/scs_test
 
