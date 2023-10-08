@@ -22,6 +22,7 @@ void test_all()
     test_func_linear_001();
     test_func_normal_distribution_001();
     test_func_normal_distribution_integer_001();
+    test_func_uniform_int_distribution_001();
 
     LOG(INFO) << "Test -> test_scs_function end";
 }
@@ -71,6 +72,24 @@ void test_func_normal_distribution_integer_001()
 
     // 30% of data will not be duplicated
     assert(result.size() >= uint8_t(loop * 0.3));
+}
+
+void test_func_uniform_int_distribution_001()
+{
+    int32_t min = 1;
+    int32_t max = 100;
+    
+    static uint8_t loop = 10;
+
+    std::unordered_set<int32_t> result;
+
+    for(int i = 0; i < loop; i++)
+    {
+        result.insert(scs::func::func_uniform_int_distribution(min, max));
+    }
+
+    // 80% of data will not be duplicated
+    assert(result.size() >= uint8_t(loop * 0.8));
 }
 
 }}}}

@@ -47,6 +47,15 @@ float func_normal_distribution(const float &mean, const float &stddev);
  */
 int32_t func_normal_distribution_integer(const float &mean, const float &stddev);
 
+/**
+ * uniformly distributed on the closed interval [min, max]
+ * 
+ * @param min minimum value
+ * @param max maximum value
+ * @return random integer values as integer
+ */
+int32_t func_uniform_int_distribution(const int32_t &min, const int32_t &max);
+
 }}
 
 #endif /* SCS_FUNCTION_HPP */

@@ -13,6 +13,7 @@ void test_all();
 void test_func_linear_001();
 void test_func_normal_distribution_001();
 void test_func_normal_distribution_integer_001();
+void test_func_uniform_int_distribution_001();
 
 }}}}
 
