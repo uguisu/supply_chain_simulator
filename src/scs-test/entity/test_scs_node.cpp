@@ -9,7 +9,7 @@
 #include <assert.h>
 #include <glog/logging.h>
 
-#include "../../scs/core/scs_function.hpp"
+#include "../../scs/function/scs_function.hpp"
 #include "../../scs/entity/scs_node.hpp"
 
 #include "test_scs_node.hpp"
