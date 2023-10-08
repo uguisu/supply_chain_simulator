@@ -11,6 +11,9 @@
 #include <chrono>
 #include <stdio.h>
 
+
+#include "scs_function.hpp"
+
 namespace scs { namespace func {
 
     /** item 001 holding cost */
@@ -24,6 +27,29 @@ namespace scs { namespace func {
     {
         return amount * 0.5;
     }
+
+
+/**
+ * get random generator
+ */
+std::default_random_engine * getRandomGenerator()
+{
+    // "std::random_device" may not work under windows, so in case user use windows, use "std::chrono" instead
+    #ifdef _WIN32
+        // Create random engine with the help of seed
+        unsigned seed = std::chrono::steady_clock::now().time_since_epoch().count(); 
+        // declare a generator with above seed
+        std::default_random_engine * generator = new std::default_random_engine(seed);
+    #else
+        // use system random device
+        std::random_device rd;
+        // declare a generator with above device
+        // std::default_random_engine generator(rd());
+        std::default_random_engine * generator = new std::default_random_engine(rd());
+    #endif
+
+    return generator;
+}
 
 /**
  * Linear
@@ -48,24 +74,16 @@ float func_linear_001(const float &x, const float &a = 1, const float &b = 0)
  */
 float func_normal_distribution(const float &mean, const float &stddev)
 {
-    // TODO move to header
-    // "std::random_device" may not work under windows, so in case user use windows, use "std::chrono" instead
-    #ifdef _WIN32
-        // Create random engine with the help of seed
-        unsigned seed = std::chrono::steady_clock::now().time_since_epoch().count(); 
-        // declare a generator with above seed
-        std::default_random_engine generator(seed);
-    #else
-        // use system random device
-        std::random_device rd;
-        // declare a generator with above device
-        std::default_random_engine generator(rd());
-    #endif
-
     // declare normal distribution object
     std::normal_distribution<double> distribution(mean, stddev);
+    // get generator
+    std::default_random_engine * generator = getRandomGenerator();
+    // generate result
+    float rtn = distribution(*generator);
+    // delete point
+    delete generator;
 
-    return distribution(generator);
+    return rtn;
 }
 
 /**
@@ -89,24 +107,17 @@ int32_t func_normal_distribution_integer(const float &mean, const float &stddev)
  */
 int32_t func_uniform_int_distribution(const int32_t &min, const int32_t &max)
 {
-
-    // TODO move to header
-    // "std::random_device" may not work under windows, so in case user use windows, use "std::chrono" instead
-    #ifdef _WIN32
-        // Create random engine with the help of seed
-        unsigned seed = std::chrono::steady_clock::now().time_since_epoch().count(); 
-        // declare a generator with above seed
-        std::default_random_engine generator(seed);
-    #else
-        // use system random device
-        std::random_device rd;
-        // declare a generator with above device
-        std::default_random_engine generator(rd());
-    #endif
-
+    // get generator
+    std::default_random_engine * generator = getRandomGenerator();
+    // declare function
     std::uniform_int_distribution<int32_t> distribution(min, max);
 
-    return distribution(generator);
+    // generate result
+    int32_t rtn = distribution(*generator);
+    // delete point
+    delete generator;
+
+    return rtn;
 }
 
 }}

@@ -7,8 +7,7 @@
 #define SCS_FUNCTION_HPP
 
 #include <string>
-// #include <vector>
-// #include <map>
+#include <random>
 
 namespace scs { namespace func {
 
@@ -23,11 +22,16 @@ float func_holding_cost_item_002(const int16_t &amount);
 
 
 /**
+ * get random generator
+ */
+std::default_random_engine * getRandomGenerator();
+
+/**
  * Linear
  * 
  * f(x) = ax + b
  */
-float func_linear_001(const float &x, const float &a = 1, const float &b = 0);
+float func_linear_001(const float &x, const float &a, const float &b);
 
 /**
  * Normal distribution / Gaussian distribution
