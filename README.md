@@ -2,8 +2,25 @@
 
 ![logo](assets/logo.jpg)
 
+<p align="center">
+    <img src="https://img.shields.io/badge/Apache-2.0-blue" alt="license" />
+    <a href=https://996.icu/#/zh_CN>
+        <img src="https://img.shields.io/badge/license-Anti%20996-blue.svg" alt="license" />
+    </a>
+</p>
+
 ## About
 A Supply Chain Simulator
+
+This project will emulate a supply chain graph, include( but not limitate ):
+- Inventory
+- Manufacturer
+- Transport
+- Retailer
+- Consumer
+
+All production and transportation processes will be abstracted into a function.
+Users can re-write these functions(or declare new functions) to handle their real scene.
 
 ## Dependence
 - [glog v0.6.0](https://github.com/google/glog)
@@ -11,8 +28,54 @@ A Supply Chain Simulator
 - [nlohmann/json v3.11.2](https://github.com/nlohmann/json)
 
 ## Requirements
+Click [here](docs/requirements.md) to view all internal requirements.
 
-Click [here](docs/requirements.md) to view all requirements.
+## Build
+
+To build all project, just execute:
+```shell
+make
+```
+
+Build goal list:
+- `make clean`
+- `make lib`
+- `make test`
+
+## Example
+To to use this project, user should specify a [config file](docs/config_example.json) which include all node/edge/items.
+
+```c++
+/**
+ * build graph
+ * @param jsonFileWithPath config file with path
+ */
+void build_graph(const std::string &jsonFileWithPath)
+{
+    // read config info from json file
+    scs::entity::ScsConfig config;
+    config.read(jsonFileWithPath);
+
+    // build graph
+    scs::entity::ScsGraph graph;
+    graph.build(config);
+
+    // show report ===============
+    LOG(INFO) << graph.report()
+}
+```
+
+After call `report()` method, graph object will output a shot report to let user confirm whether the graph config is correct.
+```log
+================== Graph Report ==================
+Total nodes: 4
+Total edges: 3
+Total items: 3
+--------------------------------------------------
+Formula: n_3 :: C
+  - 1 * A + 2 * B
+======================================== END =====
+```
 
 ## Reference
 - [Definition](docs/definition.md)
