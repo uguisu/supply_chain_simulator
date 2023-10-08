@@ -11,6 +11,8 @@ namespace scs { namespace test { namespace function { namespace func {
 void test_all();
 
 void test_func_linear_001();
+void test_func_normal_distribution_001();
+void test_func_normal_distribution_integer_001();
 
 }}}}
 

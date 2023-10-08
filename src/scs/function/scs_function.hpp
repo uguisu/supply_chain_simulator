@@ -29,6 +29,24 @@ float func_holding_cost_item_002(const int16_t &amount);
  */
 float func_linear_001(const float &x, const float &a = 1, const float &b = 0);
 
+/**
+ * Normal distribution / Gaussian distribution
+ * 
+ * @param mean μ
+ * @param stddev σ is the Standard deviation
+ * @return random value
+ */
+float func_normal_distribution(const float &mean, const float &stddev);
+
+/**
+ * Normal distribution / Gaussian distribution
+ * 
+ * @param mean μ
+ * @param stddev σ is the Standard deviation
+ * @return random integer value
+ */
+int32_t func_normal_distribution_integer(const float &mean, const float &stddev);
+
 }}
 
 #endif /* SCS_FUNCTION_HPP */
