@@ -30,6 +30,7 @@ _lib:
 	$(CXXFLAGS) \
 	$(SRCS) \
 	-fPIC \
+	-l python3.8 \
 	-I $(PYTHON_HEADER_DIR) \
 	-shared \
 	-pthread \
@@ -46,6 +47,7 @@ _test:
 	$(SRCS_TEST) \
 	-l glog \
 	-l gflags \
+	-l python3.8 \
 	-I $(PYTHON_HEADER_DIR) \
 	-pthread \
 	-o $(BUILD_DIR)/scs_test
