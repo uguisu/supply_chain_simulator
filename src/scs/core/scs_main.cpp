@@ -12,7 +12,6 @@
 #include "../entity/scs_graph.hpp"
 #include "scs_main.hpp"
 
-
 namespace scs { namespace core {
 
 /**
@@ -54,8 +53,6 @@ static PyObject * Convert_build_graph(PyObject * self, PyObject * py_json_file_w
 PyMODINIT_FUNC PyInit_scs() {
     return PyModule_Create(&scs_module);
 };
-
-
 
 }}
 
