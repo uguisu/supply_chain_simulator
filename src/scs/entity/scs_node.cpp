@@ -7,9 +7,6 @@
 #define SCS_NODE_CPP
 
 #include <string>
-#include <vector>
-
-#include <glog/logging.h>
 
 #include "scs_node.hpp"
 
