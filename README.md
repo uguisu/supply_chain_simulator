@@ -30,7 +30,7 @@ Users can re-write these functions(or declare new functions) to handle their rea
 ## Requirements
 Click [here](docs/requirements.md) to view all internal requirements.
 
-## Build
+## Build C++
 
 To build all project, just execute:
 ```shell
@@ -41,6 +41,16 @@ Build goal list:
 - `make clean`
 - `make lib`
 - `make test`
+
+## Build Python lib
+
+```sh
+# active python virtual env
+# source <PATH>/venv/bin/activate
+
+cd ./py_wrapper_src/scs
+CC=g++ python setup.py install
+```
 
 ## Example
 To to use this project, user should specify a [config file](docs/config_example.json) which include all node/edge/items.
