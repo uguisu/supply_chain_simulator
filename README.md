@@ -7,6 +7,7 @@
     <a href=https://996.icu/#/zh_CN>
         <img src="https://img.shields.io/badge/license-Anti%20996-blue.svg" alt="license" />
     </a>
+    <img src="https://img.shields.io/badge/Python-3.8-red" alt="py38" />
 </p>
 
 ## About
@@ -26,6 +27,7 @@ Users can re-write these functions(or declare new functions) to handle their rea
 - [glog v0.6.0](https://github.com/google/glog)
 - [gflag v2.2.2](https://github.com/gflags/gflags)
 - [nlohmann/json v3.11.2](https://github.com/nlohmann/json)
+- python 3.8 ( python3.8-dev / python3.8-venv / virtualenv )
 
 ## Requirements
 Click [here](docs/requirements.md) to view all internal requirements.
