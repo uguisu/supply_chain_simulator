@@ -1,6 +1,9 @@
 from distutils.core import setup, Extension
 from pathlib import Path
 
+# to confirm:
+#     ldd -r /<PATH>/venv/lib/python3.8/site-packages/scs.cpython-38-x86_64-linux-gnu.so
+
 
 # === base info ===
 model_name = 'scs'
