@@ -40,11 +40,16 @@ make
 ```
 
 Build goal list:
-- `make clean`
-- `make lib`
-- `make test`
+- `make clean` clean all build cache
+- `make lib` build `.so` library
+- `make test` build test program
+- `make py` build python extension module
 
-## Build Python lib
+## Build Python lib manually
+
+`make py` is an automatic script to build python extension module.
+
+Users who do not familiar with `make` command can build above module manually.
 
 ```sh
 # active python virtual env
@@ -53,6 +58,10 @@ Build goal list:
 cd ./py_wrapper_src/scs
 CC=g++ python setup.py install
 ```
+
+:bulb: Tips:
+- To avoid contaminating the system and Python setup, it is best to use a Python virtual environment
+- In the python build path, create a soft link to the C++ build path. This will help keep the project tidy. Example: `cd ./py_wrapper_src/scs && ln -s ../../build/ ./build`
 
 ## Example
 To to use this project, user should specify a [config file](docs/config_example.json) which include all node/edge/items.
