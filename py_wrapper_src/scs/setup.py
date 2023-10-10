@@ -1,5 +1,9 @@
-from distutils.core import setup, Extension
+# coding=utf-8
+# author xin.he
+
 from pathlib import Path
+from distutils.core import setup, Extension
+from . import __version__
 
 # to confirm:
 #     ldd -r /<PATH>/venv/lib/python3.8/site-packages/scs.cpython-38-x86_64-linux-gnu.so
@@ -61,11 +65,16 @@ def get_extension() -> Extension:
 
 def main():
     setup(name=model_name,
-          version="1.0.0",
+          version=__version__,
           description="scs test",
           author="xin.he",
-          author_email="xin.he@123.com",
-          ext_modules=[get_extension()])
+          author_email="unknow@scsunknow.com",
+          url='https://github.com/uguisu/supply_chain_simulator',
+          ext_modules=[get_extension()],
+          license='Apache License 2.0',
+          keywords='supply chain simulator',
+          python_requires='>=3.8',
+          )
 
 
 if __name__ == "__main__":
