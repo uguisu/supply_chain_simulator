@@ -3,7 +3,6 @@
 
 from pathlib import Path
 from distutils.core import setup, Extension
-from . import __version__
 
 # to confirm:
 #     ldd -r /<PATH>/venv/lib/python3.8/site-packages/scs.cpython-38-x86_64-linux-gnu.so
@@ -17,7 +16,7 @@ src_dirs = [
     '../../src/scs/enums',
     '../../src/scs/function',
 ]
-
+version = '0.0.1.dev1'
 
 def get_sources() -> list:
 
@@ -65,7 +64,7 @@ def get_extension() -> Extension:
 
 def main():
     setup(name=model_name,
-          version=__version__,
+          version=version,
           description="scs test",
           author="xin.he",
           author_email="unknow@scsunknow.com",
