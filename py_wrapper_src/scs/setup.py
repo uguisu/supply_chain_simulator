@@ -72,7 +72,6 @@ def main():
           ext_modules=[get_extension()],
           license='Apache License 2.0',
           keywords='supply chain simulator',
-          python_requires='>=3.8',
           )
 
 
