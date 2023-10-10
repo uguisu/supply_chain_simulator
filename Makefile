@@ -6,6 +6,9 @@
 BUILD_DIR := ./build
 SRC_DIRS := ./src/scs
 SRC_TEST_DIRS := ./src
+PYTHON_BUILD_ROOT_DIR := ./py_wrapper_src
+PYTHON_BUILD_SRC_DIR := $(PYTHON_BUILD_ROOT_DIR)/scs
+PYTHON_BUILD_VENV_DIR := $(PYTHON_BUILD_ROOT_DIR)/venv
 
 # specify your python version
 PYTHON_VERSION := python3.8
@@ -59,12 +62,21 @@ test: _test done_message
 # build python extension module
 _py_extension_module:
 	@echo "🐍 Building python extension module..."
+# auto build python virtual env
+	@if [ ! -d $(PYTHON_BUILD_VENV_DIR) ]; then \
+		echo "  🤔 Can not find valid python virtual environment."; \
+		echo "  👋 Create a new one for you."; \
+		cd $(PYTHON_BUILD_ROOT_DIR); \
+		virtualenv -p $(PYTHON_VERSION) venv; \
+	fi
+# start setup tool
+	@cd $(PYTHON_BUILD_SRC_DIR) && CC=g++ ../venv/bin/python ./setup.py install
 
 py: _py_extension_module done_message
 .PHONY : py
 
 clean:
-	@$(RM) $(BUILD_DIR)/*
+	@$(RM) -rf $(BUILD_DIR)/*
 .PHONY : clean
 
 done_message:
