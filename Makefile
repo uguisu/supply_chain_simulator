@@ -8,7 +8,8 @@ SRC_DIRS := ./src/scs
 SRC_TEST_DIRS := ./src
 
 # specify your python version
-PYTHON_HEADER_DIR := /usr/include/python3.8
+PYTHON_VERSION := python3.8
+PYTHON_HEADER_DIR := /usr/include/$(PYTHON_VERSION)
 
 # Flag for implicit rules. Turn on debug info
 CXXFLAGS = -g -std=c++11
@@ -30,7 +31,7 @@ _lib:
 	$(CXXFLAGS) \
 	$(SRCS) \
 	-fPIC \
-	-l python3.8 \
+	-l $(PYTHON_VERSION) \
 	-I $(PYTHON_HEADER_DIR) \
 	-shared \
 	-pthread \
@@ -47,7 +48,7 @@ _test:
 	$(SRCS_TEST) \
 	-l glog \
 	-l gflags \
-	-l python3.8 \
+	-l $(PYTHON_VERSION) \
 	-I $(PYTHON_HEADER_DIR) \
 	-pthread \
 	-o $(BUILD_DIR)/scs_test
@@ -55,8 +56,15 @@ _test:
 test: _test done_message
 .PHONY : test
 
+# build python extension module
+_py_extension_module:
+	@echo "🪴 Building python extension module..."
+
+py: _py_extension_module done_message
+.PHONY : py
+
 clean:
-	$(RM) $(BUILD_DIR)/*
+	@$(RM) $(BUILD_DIR)/*
 .PHONY : clean
 
 done_message:
