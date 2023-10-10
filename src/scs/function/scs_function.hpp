@@ -60,6 +60,14 @@ int32_t func_normal_distribution_integer(const float &mean, const float &stddev)
  */
 int32_t func_uniform_int_distribution(const int32_t &min, const int32_t &max);
 
+/**
+ * poisson distribution
+ * 
+ * @param occurrence how many times per minute does an event occur on average
+ * @return random value
+ */
+int32_t func_poisson_distribution(const int8_t &occurrence);
+
 }}
 
 #endif /* SCS_FUNCTION_HPP */

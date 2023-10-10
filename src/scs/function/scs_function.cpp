@@ -120,6 +120,27 @@ int32_t func_uniform_int_distribution(const int32_t &min, const int32_t &max)
     return rtn;
 }
 
+/**
+ * poisson distribution
+ * 
+ * @param occurrence how many times per minute does an event occur on average
+ * @return random value
+ */
+int32_t func_poisson_distribution(const int8_t &occurrence)
+{
+    // get generator
+    std::default_random_engine * generator = getRandomGenerator();
+    // declare function
+    std::poisson_distribution<int32_t> distribution(occurrence);
+
+    // generate result
+    int32_t rtn = distribution(*generator);
+    // delete point
+    delete generator;
+
+    return rtn;
+}
+
 }}
 
 #endif /* SCS_FUNCTION_CPP */
