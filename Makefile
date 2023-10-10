@@ -58,7 +58,7 @@ test: _test done_message
 
 # build python extension module
 _py_extension_module:
-	@echo "🪴 Building python extension module..."
+	@echo "🐍 Building python extension module..."
 
 py: _py_extension_module done_message
 .PHONY : py
@@ -68,5 +68,5 @@ clean:
 .PHONY : clean
 
 done_message:
-	@echo "🌲 Done ===="
+	@echo "🎖️  Done ===="
 .PHONY : done_message
