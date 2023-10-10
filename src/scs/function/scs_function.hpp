@@ -68,6 +68,24 @@ int32_t func_uniform_int_distribution(const int32_t &min, const int32_t &max);
  */
 int32_t func_poisson_distribution(const int8_t &occurrence);
 
+/**
+ * gamma distribution
+ * 
+ * @param alpha alpha
+ * @param beta beta
+ * @return random value
+ */
+float func_gamma_distribution(const int8_t &alpha, const int8_t &beta);
+
+/**
+ * gamma distribution
+ * 
+ * @param alpha alpha
+ * @param beta beta
+ * @return random value
+ */
+int32_t func_gamma_distribution_integer(const int8_t &alpha, const int8_t &beta);
+
 }}
 
 #endif /* SCS_FUNCTION_HPP */

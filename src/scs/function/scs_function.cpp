@@ -141,6 +141,39 @@ int32_t func_poisson_distribution(const int8_t &occurrence)
     return rtn;
 }
 
+/**
+ * gamma distribution
+ * 
+ * @param alpha alpha
+ * @param beta beta
+ * @return random value
+ */
+float func_gamma_distribution(const int8_t &alpha, const int8_t &beta)
+{
+    // declare normal distribution object
+    std::gamma_distribution<double> distribution(alpha, beta);
+    // get generator
+    std::default_random_engine * generator = getRandomGenerator();
+    // generate result
+    float rtn = distribution(*generator);
+    // delete point
+    delete generator;
+
+    return rtn;
+}
+
+/**
+ * gamma distribution
+ * 
+ * @param alpha alpha
+ * @param beta beta
+ * @return random value
+ */
+int32_t func_gamma_distribution_integer(const int8_t &alpha, const int8_t &beta)
+{
+    return std::round(func_gamma_distribution(alpha, beta));
+}
+
 }}
 
 #endif /* SCS_FUNCTION_CPP */

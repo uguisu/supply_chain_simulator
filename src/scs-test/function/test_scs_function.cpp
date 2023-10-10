@@ -24,6 +24,8 @@ void test_all()
     test_func_normal_distribution_integer_001();
     test_func_uniform_int_distribution_001();
     test_func_poisson_distribution_001();
+    test_func_gamma_distribution_001();
+    test_func_gamma_distribution_integer_001();
 
     LOG(INFO) << "Test -> test_scs_function end";
 }
@@ -101,6 +103,40 @@ void test_func_poisson_distribution_001()
     for(int i = 0; i < loop; i++)
     {
         result.insert(scs::func::func_poisson_distribution(occurrence));
+    }
+
+    assert(result.size() <= loop);
+}
+
+void test_func_gamma_distribution_001()
+{
+    int8_t alpha = 5;
+    int8_t beta = 8;
+    
+    static uint8_t loop = 20;
+
+    std::unordered_set<float> result;
+
+    for(int i = 0; i < loop; i++)
+    {
+        result.insert(scs::func::func_gamma_distribution(alpha, beta));
+    }
+
+    assert(result.size() <= loop);
+}
+
+void test_func_gamma_distribution_integer_001()
+{
+    int8_t alpha = 5;
+    int8_t beta = 8;
+    
+    static uint8_t loop = 20;
+
+    std::unordered_set<int32_t> result;
+
+    for(int i = 0; i < loop; i++)
+    {
+        result.insert(scs::func::func_gamma_distribution_integer(alpha, beta));
     }
 
     assert(result.size() <= loop);
