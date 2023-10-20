@@ -318,19 +318,19 @@ std::string ScsGraph::report()
 
     // calculate items
     std::unordered_set<std::string> itemSet;
-    for(const auto wrk_pair : this->nodeMap)
+    for(const std::pair<std::string, scs::entity::ScsNode*> wrk_pair : this->nodeMap)
     {
         // get node object
         p_node = wrk_pair.second;
 
         // go through Node
-        for(const auto wrk_pair_item : (*p_node).itemMap)
+        for(const std::pair<std::string, scs::entity::ScsItem*> wrk_pair_item : (*p_node).itemMap)
         {
             itemSet.insert(wrk_pair_item.first);
         }
 
         // go through manufacture
-        for(const auto wrk_pair_manufacture : (*p_node).manufactureMap)
+        for(const std::pair<std::string, scs::entity::ScsConfigManufacture*> wrk_pair_manufacture : (*p_node).manufactureMap)
         {
             ssManufacture << "Formula: " << (*p_node).id << " :: " << wrk_pair_manufacture.first << "\n";
             wrk_formula_amount = wrk_pair_manufacture.second->componentList.size();

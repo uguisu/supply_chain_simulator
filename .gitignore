@@ -31,7 +31,9 @@
 *.out
 *.app
 
-# add by hexin
+# add by xin.he
 .vscode/
 build/
 play_ground/
+venv/
+py_wrapper_src/scs/build
