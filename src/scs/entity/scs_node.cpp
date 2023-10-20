@@ -7,9 +7,6 @@
 #define SCS_NODE_CPP
 
 #include <string>
-#include <vector>
-
-#include <glog/logging.h>
 
 #include "scs_node.hpp"
 
@@ -18,7 +15,7 @@ namespace scs { namespace entity {
     /**
      * get function map
      */
-    std::map<std::string, scs::core::Fun_ptr>& ScsNode::getFuncMap()
+    std::map<std::string, scs::func::Fun_ptr>& ScsNode::getFuncMap()
     {
         return this->funcMap;
     }

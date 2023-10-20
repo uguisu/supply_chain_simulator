@@ -10,7 +10,7 @@
 #include <vector>
 #include <map>
 
-#include "../core/scs_function.hpp"
+#include "../function/scs_function.hpp"
 #include "scs_config.hpp"
 #include "scs_item.hpp"
 
@@ -96,7 +96,7 @@ class ScsNode
         /**
          * get function map
          */
-        std::map<std::string, scs::core::Fun_ptr>& getFuncMap();
+        std::map<std::string, scs::func::Fun_ptr>& getFuncMap();
         /**
          * execute target function
          */
@@ -106,7 +106,7 @@ class ScsNode
     private:
 
         // The holding cost of each material is stored as a function pointer in funcMap
-        std::map<std::string, scs::core::Fun_ptr> funcMap;
+        std::map<std::string, scs::func::Fun_ptr> funcMap;
 };
 
 /**

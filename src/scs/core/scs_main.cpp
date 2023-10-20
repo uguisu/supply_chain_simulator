@@ -12,7 +12,6 @@
 #include "../entity/scs_graph.hpp"
 #include "scs_main.hpp"
 
-
 namespace scs { namespace core {
 
 /**
@@ -31,6 +30,29 @@ void build_graph(const std::string &jsonFileWithPath)
 
     // TODO next step ===============
 }
+
+/**
+ * convert build graph
+ * @param py_json_file_with_path config file with path
+ */
+static PyObject * Convert_build_graph(PyObject * self, PyObject * py_json_file_with_path)
+{
+    /* Parse arguments */
+    std::string * py_json_f;
+    if(!PyArg_ParseTuple(py_json_file_with_path, "S", &py_json_f)) {
+        return NULL;
+    }
+    
+    // call real function
+    build_graph(*py_json_f);
+
+    // return null
+    return (PyObject *)(Py_BuildValue(""));
+}
+
+PyMODINIT_FUNC PyInit_scs() {
+    return PyModule_Create(&scs_module);
+};
 
 }}
 
