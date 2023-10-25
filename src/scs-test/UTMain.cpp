@@ -14,6 +14,7 @@
 #include "entity/test_scs_config.hpp"
 #include "entity/test_scs_node.hpp"
 #include "entity/test_scs_graph.hpp"
+#include "entity/test_scs_purchase_demand.hpp"
 #include "function/test_scs_function.hpp"
 
 // declare default flag values
@@ -77,6 +78,7 @@ int main(int argc, char *argv[])
     scs::test::entity::config::test_all();
     scs::test::entity::node::test_all();
     scs::test::entity::graph::test_all();
+    scs::test::entity::purchase_demand::test_all();
     scs::test::function::func::test_all();
 
     // output all logs

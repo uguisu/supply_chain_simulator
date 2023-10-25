@@ -1,0 +1,26 @@
+{
+    "purchase": [
+        {
+            "node_id": "1",
+            "demands": [
+                {
+                    "item_id": "A",
+                    "amount": 3
+                },
+                {
+                    "item_id": "B",
+                    "amount": 4
+                }
+            ]
+        },
+        {
+            "node_id": "2",
+            "demands": [
+                {
+                    "item_id": "C",
+                    "amount": 88
+                }
+            ]
+        }
+    ]
+}
