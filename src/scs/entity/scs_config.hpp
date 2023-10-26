@@ -35,6 +35,9 @@ const std::string FIELD_COMPONENT_LIST = "component_list";
 const std::string FIELD_MANUFACTURE = "manufacture";
 const std::string FIELD_FORMULA = "formula";
 const std::string FIELD_MATERIAL= "materials";
+const std::string FIELD_QUANTITY= "quantity";
+const std::string FIELD_ITEM_LIST= "item_list";
+const std::string FIELD_INIT_NODE_QUANTITY = "init_node_quantity";
 
 // pre-declare class
 class ScsConfig;
@@ -46,6 +49,8 @@ class ScsConfigFormula;
 class ScsConfigEdge;
 // For: "holding_cost", "shortage_cost", "salvage_cost", "consumer"
 class ScsConfigCost;
+// For: "init_node_quantity"
+class ScsConfigInitNodeQuantity;
 
 // For: "func"
 class ScsConfigFunc;
@@ -53,7 +58,8 @@ class ScsConfigFunc;
 class ScsConfigManufacture;
 // For: "component"
 class ScsConfigComponent;
-
+// For: "item_list"
+class ScsConfigItemQuantity;
 
 class ScsConfigFunc
 {
@@ -85,6 +91,38 @@ class ScsConfigCost
         void from_json(const json &jsonObject);
 
         ~ScsConfigCost() {};
+};
+
+class ScsConfigItemQuantity
+{
+    public:
+        /** item id */
+        std::string itemId;
+        /** quantity */
+        float quantity;
+
+        /**
+         * setup value
+         */
+        void from_json(const json &jsonObject);
+
+        ~ScsConfigItemQuantity() {};
+};
+
+class ScsConfigInitNodeQuantity
+{
+    public:
+        /** node id */
+        std::string nodeId;
+        /** item list */
+        std::vector<ScsConfigItemQuantity> itemList;
+
+        /**
+         * setup value
+         */
+        void from_json(const json &jsonObject);
+
+        ~ScsConfigInitNodeQuantity() {};
 };
 
 class ScsConfigEdge
@@ -209,6 +247,8 @@ class ScsConfig
         std::vector<ScsConfigCost> salvageCost;
         /** consumer */
         std::vector<ScsConfigCost> consumer;
+        /** node quantity */
+        std::vector<ScsConfigInitNodeQuantity> nodeQuantity;
 
         /**
          * read config values from json

@@ -82,7 +82,13 @@ namespace scs { namespace entity {
             scc.from_json(c_item);
             this->consumer.push_back(scc);
         }
-
+        // field: init_node_quantity
+        for(auto &q_item : jsonObject[FIELD_INIT_NODE_QUANTITY])
+        {
+            ScsConfigInitNodeQuantity scinq;
+            scinq.from_json(q_item);
+            this->nodeQuantity.push_back(scinq);
+        }
         // verify all settings
         this->verify();
     }
@@ -116,6 +122,15 @@ namespace scs { namespace entity {
     /**
      * setup value
      */
+    void ScsConfigItemQuantity::from_json(const json &jsonObject)
+    {
+        jsonObject.at(FIELD_ITEM_ID).get_to(this->itemId);
+        jsonObject.at(FIELD_QUANTITY).get_to(this->quantity);
+    }
+
+    /**
+     * setup value
+     */
     void ScsConfigLoLs::from_json(const json &jsonObject)
     {
         jsonObject.at(FIELD_PATH).get_to(this->path);
@@ -140,6 +155,21 @@ namespace scs { namespace entity {
             ScsConfigFunc scf;
             scf.from_json(func_item);
             this->funcList.push_back(scf);
+        }
+    }
+
+    /**
+     * setup value
+     */
+    void ScsConfigInitNodeQuantity::from_json(const json &jsonObject)
+    {
+        jsonObject.at(FIELD_NODE_ID).get_to(this->nodeId);
+
+        for(auto &item : jsonObject[FIELD_ITEM_LIST])
+        {
+            ScsConfigItemQuantity sciq;
+            sciq.from_json(item);
+            this->itemList.push_back(sciq);
         }
     }
 

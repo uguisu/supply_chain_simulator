@@ -43,6 +43,7 @@ void test_001()
     assert(2 == config.shortageCost.size());
     assert(2 == config.salvageCost.size());
     assert(2 == config.consumer.size());
+    assert(2 == config.nodeQuantity.size());
 
     assert(2 == config.lo[0].funcList.size());
     assert("(1, 2)" == config.lo[0].path);
@@ -127,6 +128,16 @@ void test_001()
     assert("d_func3" == config.consumer[1].funcList[0].funcId);
     assert("Z" == config.consumer[1].funcList[1].itemId);
     assert("d_func4" == config.consumer[1].funcList[1].funcId);
+
+    assert("17" == config.nodeQuantity[0].nodeId);
+    assert(2 == config.nodeQuantity[0].itemList.size());
+    assert("A1" == config.nodeQuantity[0].itemList[0].itemId);
+    assert(21 == config.nodeQuantity[0].itemList[0].quantity);
+    assert("A2" == config.nodeQuantity[0].itemList[1].itemId);
+    assert(22 == config.nodeQuantity[0].itemList[1].quantity);
+    assert(1 == config.nodeQuantity[1].itemList.size());
+    assert("A3" == config.nodeQuantity[1].itemList[0].itemId);
+    assert(23 == config.nodeQuantity[1].itemList[0].quantity);
 }
 
 }}}}

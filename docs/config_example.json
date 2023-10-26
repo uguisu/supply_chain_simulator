@@ -171,5 +171,29 @@
                 }
             ]
         }
+    ],
+    "init_node_quantity": [
+        {
+            "node_id": "17",
+            "item_list": [
+                {
+                    "item_id": "A1",
+                    "quantity": 21
+                },
+                {
+                    "item_id": "A2",
+                    "quantity": 22
+                }
+            ]
+        },
+        {
+            "node_id": "18",
+            "item_list": [
+                {
+                    "item_id": "A3",
+                    "quantity": 23
+                }
+            ]
+        }
     ]
 }
