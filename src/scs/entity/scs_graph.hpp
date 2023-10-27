@@ -85,6 +85,12 @@ class ScsGraph
         void _processCost(const std::vector<ScsConfigCost> &cost, const scs::enums::CostType &costType);
 
         /**
+         * process init node quantity
+         * @param nodeQuantity ScsConfigInitNodeQuantity list
+         */
+        void _processInitNodeQuantity(const std::vector<ScsConfigInitNodeQuantity> &nodeQuantity);
+
+        /**
          * make sure target nodeId exist in nodeMap
          * @param nodeId node id
          * @return point of ScsNode object

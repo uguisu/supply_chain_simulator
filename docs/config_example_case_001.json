@@ -98,5 +98,25 @@
                 }
             ]
         }
+    ],
+    "init_node_quantity": [
+        {
+            "node_id": "n_1",
+            "item_list": [
+                {
+                    "item_id": "A",
+                    "quantity": 10
+                }
+            ]
+        },
+        {
+            "node_id": "n_2",
+            "item_list": [
+                {
+                    "item_id": "A",
+                    "quantity": 11
+                }
+            ]
+        }
     ]
 }

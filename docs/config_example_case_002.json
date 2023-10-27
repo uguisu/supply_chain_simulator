@@ -240,5 +240,51 @@
                 }
             ]
         }
+    ],
+    "init_node_quantity": [
+        {
+            "node_id": "n_1",
+            "item_list": [
+                {
+                    "item_id": "A",
+                    "quantity": 10
+                }
+            ]
+        },
+        {
+            "node_id": "n_2",
+            "item_list": [
+                {
+                    "item_id": "B",
+                    "quantity": 11
+                }
+            ]
+        },
+        {
+            "node_id": "n_3",
+            "item_list": [
+                {
+                    "item_id": "A",
+                    "quantity": 12
+                },
+                {
+                    "item_id": "B",
+                    "quantity": 13
+                },
+                {
+                    "item_id": "C",
+                    "quantity": 14
+                }
+            ]
+        },
+        {
+            "node_id": "n_4",
+            "item_list": [
+                {
+                    "item_id": "C",
+                    "quantity": 15
+                }
+            ]
+        }
     ]
 }

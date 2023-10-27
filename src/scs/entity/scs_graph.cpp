@@ -49,6 +49,9 @@ void ScsGraph::build(const scs::entity::ScsConfig &config)
     // Field: consumer
     this->_processCost(config.consumer, scs::enums::CostType::Consumer);
 
+    // Field: init_node_quantity
+    this->_processInitNodeQuantity(config.nodeQuantity);
+
     // verify
     this->verify();
 }
@@ -202,6 +205,27 @@ void ScsGraph::_processCost(const std::vector<ScsConfigCost> &cost, const scs::e
                 funcSet.insert(scsFunc.funcId);
                 (*it_obj).functionMap[costType] = funcSet;
             }
+        }
+    }
+}
+
+/**
+ * process init node quantity
+ * @param nodeQuantity ScsConfigInitNodeQuantity list
+ */
+void ScsGraph::_processInitNodeQuantity(const std::vector<ScsConfigInitNodeQuantity> &nodeQuantity)
+{
+    for(ScsConfigInitNodeQuantity scsNodeQuantity : nodeQuantity)
+    {
+        // fetch all nodes from cost declaration
+        ScsNode *p_node = this->make_sure_node(scsNodeQuantity.nodeId);
+
+        for(ScsConfigItemQuantity scsQuantity : scsNodeQuantity.itemList)
+        {
+            // item
+            ScsItem * it_obj = this->make_sure_item(p_node, scsQuantity.itemId);
+
+            (*it_obj).quantity = scsQuantity.quantity;
         }
     }
 }

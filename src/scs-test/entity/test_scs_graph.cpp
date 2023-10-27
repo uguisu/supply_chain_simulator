@@ -78,11 +78,13 @@ void test_002()
     wrk_node = graph.nodeMap[targetNodeID_1];
     assert(1 == (*wrk_node).itemMap.count(targetItemID_A));
     assert(0 == (*wrk_node).manufactureMap.count(targetItemID_A));
+    assert(10 == (*wrk_node).itemMap[targetItemID_A]->quantity);
 
     assert(1 == graph.nodeMap.count(targetNodeID_2));
     wrk_node = graph.nodeMap[targetNodeID_2];
     assert(1 == (*wrk_node).itemMap.count(targetItemID_B));
     assert(0 == (*wrk_node).manufactureMap.count(targetItemID_B));
+    assert(11 == (*wrk_node).itemMap[targetItemID_B]->quantity);
 
     assert(1 == graph.nodeMap.count(targetNodeID_3));
     wrk_node = graph.nodeMap[targetNodeID_3];
@@ -91,11 +93,15 @@ void test_002()
     assert(1 == (*wrk_node).itemMap.count(targetItemID_B));
     assert(1 == (*wrk_node).itemMap.count(targetItemID_C));
     assert(1 == (*wrk_node).manufactureMap.count(targetItemID_C));
+    assert(12 == (*wrk_node).itemMap[targetItemID_A]->quantity);
+    assert(13 == (*wrk_node).itemMap[targetItemID_B]->quantity);
+    assert(14 == (*wrk_node).itemMap[targetItemID_C]->quantity);
 
     assert(1 == graph.nodeMap.count(targetNodeID_4));
     wrk_node = graph.nodeMap[targetNodeID_4];
     assert(1 == (*wrk_node).itemMap.count(targetItemID_C));
     assert(0 == (*wrk_node).manufactureMap.count(targetItemID_C));
+    assert(15 == (*wrk_node).itemMap[targetItemID_C]->quantity);
 }
 
 }}}}

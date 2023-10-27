@@ -31,9 +31,9 @@ class ScsItem
         std::map<scs::enums::CostType, std::unordered_set<std::string>> functionMap;
 
         /**
-         * remainder
+         * quantity
          */
-        float remainder = 0.0;
+        float quantity = 0.0;
 };
 
 }}

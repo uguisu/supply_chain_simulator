@@ -99,7 +99,7 @@ class ScsConfigItemQuantity
         /** item id */
         std::string itemId;
         /** quantity */
-        float quantity;
+        float quantity = 0;
 
         /**
          * setup value
