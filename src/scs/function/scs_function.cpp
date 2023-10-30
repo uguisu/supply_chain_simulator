@@ -10,169 +10,268 @@
 #include <random>
 #include <chrono>
 #include <stdio.h>
-
+#include <stdexcept>
 
 #include "scs_function.hpp"
 
 namespace scs { namespace func {
 
-    /** item 001 holding cost */
-    float func_holding_cost_item_001(const int16_t &amount)
+    /**
+     * get random generator
+     */
+    std::default_random_engine * AbstractScsFunction::getRandomGenerator()
     {
-        return amount * 2;
+        // "std::random_device" may not work under windows, so in case user use windows, use "std::chrono" instead
+        #ifdef _WIN32
+            // Create random engine with the help of seed
+            unsigned seed = std::chrono::steady_clock::now().time_since_epoch().count(); 
+            // declare a generator with above seed
+            std::default_random_engine * generator = new std::default_random_engine(seed);
+        #else
+            // use system random device
+            std::random_device rd;
+            // declare a generator with above device
+            // std::default_random_engine generator(rd());
+            std::default_random_engine * generator = new std::default_random_engine(rd());
+        #endif
+
+        return generator;
     }
 
-    /** item 002 holding cost */
-    float func_holding_cost_item_002(const int16_t &amount)
+    /**
+     * calculate
+     * @param x input amount
+     */
+    float AbstractScsFunction::cal(const float &x)
     {
-        return amount * 0.5;
+        throw std::runtime_error("Class inheritance error");
     }
 
+    /**
+     * calculate
+     * @param x input amount
+     */
+    float ScsFuncLinear001::cal(const float &x)
+    {
+        return this->func_linear_001(x, this->m_a, this->m_b);
+    }
 
-/**
- * get random generator
- */
-std::default_random_engine * getRandomGenerator()
-{
-    // "std::random_device" may not work under windows, so in case user use windows, use "std::chrono" instead
-    #ifdef _WIN32
-        // Create random engine with the help of seed
-        unsigned seed = std::chrono::steady_clock::now().time_since_epoch().count(); 
-        // declare a generator with above seed
-        std::default_random_engine * generator = new std::default_random_engine(seed);
-    #else
-        // use system random device
-        std::random_device rd;
-        // declare a generator with above device
-        // std::default_random_engine generator(rd());
-        std::default_random_engine * generator = new std::default_random_engine(rd());
-    #endif
+    /**
+     * Linear
+     * 
+     * f(x) = ax + b
+     * 
+     * @param x input amount
+     * @param a paramater
+     * @param b bias
+     */
+    float ScsFuncLinear001::func_linear_001(const float &x, const float &a = 1, const float &b = 0)
+    {
+        return a * x + b;
+    }
 
-    return generator;
-}
+    /**
+     * construct
+     * @param a paramater
+     * @param b bias
+     */
+    ScsFuncLinear001::ScsFuncLinear001(const float &a, const float &b)
+    {
+        this->m_a = a;
+        this->m_b = b;
+    }
 
-/**
- * Linear
- * 
- * f(x) = ax + b
- * 
- * @param x input amount
- * @param a paramater
- * @param b bias
- */
-float func_linear_001(const float &x, const float &a = 1, const float &b = 0)
-{
-    return a * x + b;
-}
+    /**
+     * Normal distribution / Gaussian distribution
+     * 
+     * @param mean μ
+     * @param stddev σ is the Standard deviation
+     * @return random value
+     */
+    float ScsFuncNormalDistribution::func_normal_distribution(const float &mean, const float &stddev)
+    {
+        // declare normal distribution object
+        std::normal_distribution<double> distribution(mean, stddev);
+        // get generator
+        std::default_random_engine * generator = this->getRandomGenerator();
+        // generate result
+        float rtn = distribution(*generator);
+        // delete point
+        delete generator;
 
-/**
- * Normal distribution / Gaussian distribution
- * 
- * @param mean μ
- * @param stddev σ is the Standard deviation
- * @return random value
- */
-float func_normal_distribution(const float &mean, const float &stddev)
-{
-    // declare normal distribution object
-    std::normal_distribution<double> distribution(mean, stddev);
-    // get generator
-    std::default_random_engine * generator = getRandomGenerator();
-    // generate result
-    float rtn = distribution(*generator);
-    // delete point
-    delete generator;
+        return rtn;
+    }
 
-    return rtn;
-}
+    /**
+     * calculate
+     * @param x input amount(will be ignored)
+     */
+    float ScsFuncNormalDistribution::cal(const float &x)
+    {
+        return this->func_normal_distribution(this->m_mean, this->m_stddev);
+    }
 
-/**
- * Normal distribution / Gaussian distribution
- * 
- * @param mean μ
- * @param stddev σ is the Standard deviation
- * @return random integer value
- */
-int32_t func_normal_distribution_integer(const float &mean, const float &stddev)
-{
-    return std::round(func_normal_distribution(mean, stddev));
-}
+    /**
+     * construct
+     * @param mean μ
+     * @param stddev σ is the Standard deviation
+     */
+    ScsFuncNormalDistribution::ScsFuncNormalDistribution(const float &mean, const float &stddev)
+    {
+        this->m_mean = mean;
+        this->m_stddev = stddev;
+    }
 
-/**
- * uniformly distributed on the closed interval [min, max]
- * 
- * @param min minimum value
- * @param max maximum value
- * @return random integer values as integer
- */
-int32_t func_uniform_int_distribution(const int32_t &min, const int32_t &max)
-{
-    // get generator
-    std::default_random_engine * generator = getRandomGenerator();
-    // declare function
-    std::uniform_int_distribution<int32_t> distribution(min, max);
+    /**
+     * uniformly distributed on the closed interval [min, max]
+     * 
+     * @param min minimum value
+     * @param max maximum value
+     * @return random integer values as integer
+     */
+    int32_t ScsFuncUniformIntDistribution::func_uniform_int_distribution(const int32_t &min, const int32_t &max)
+    {
+        // get generator
+        std::default_random_engine * generator = this->getRandomGenerator();
+        // declare function
+        std::uniform_int_distribution<int32_t> distribution(min, max);
 
-    // generate result
-    int32_t rtn = distribution(*generator);
-    // delete point
-    delete generator;
+        // generate result
+        int32_t rtn = distribution(*generator);
+        // delete point
+        delete generator;
 
-    return rtn;
-}
+        return rtn;
+    }
 
-/**
- * poisson distribution
- * 
- * @param occurrence how many times per minute does an event occur on average
- * @return random value
- */
-int32_t func_poisson_distribution(const int8_t &occurrence)
-{
-    // get generator
-    std::default_random_engine * generator = getRandomGenerator();
-    // declare function
-    std::poisson_distribution<int32_t> distribution(occurrence);
+    /**
+     * calculate
+     * @param x input amount(will be ignored)
+     */
+    float ScsFuncUniformIntDistribution::cal(const float &x)
+    {
+        return this->func_uniform_int_distribution(this->m_min, this->m_max);
+    }
 
-    // generate result
-    int32_t rtn = distribution(*generator);
-    // delete point
-    delete generator;
+    /**
+     * construct
+     * @param min minimum value
+     * @param max maximum value
+     */
+    ScsFuncUniformIntDistribution::ScsFuncUniformIntDistribution(const int32_t &min, const int32_t &max)
+    {
+        this->m_min = min;
+        this->m_max = max;
+    }
 
-    return rtn;
-}
+    /**
+     * poisson distribution
+     * 
+     * @param occurrence how many times per minute does an event occur on average
+     * @return random value
+     */
+    int32_t ScsFuncPoissonDistribution::func_poisson_distribution(const int8_t &occurrence)
+    {
+        // get generator
+        std::default_random_engine * generator = this->getRandomGenerator();
+        // declare function
+        std::poisson_distribution<int32_t> distribution(occurrence);
 
-/**
- * gamma distribution
- * 
- * @param alpha alpha
- * @param beta beta
- * @return random value
- */
-float func_gamma_distribution(const int8_t &alpha, const int8_t &beta)
-{
-    // declare normal distribution object
-    std::gamma_distribution<double> distribution(alpha, beta);
-    // get generator
-    std::default_random_engine * generator = getRandomGenerator();
-    // generate result
-    float rtn = distribution(*generator);
-    // delete point
-    delete generator;
+        // generate result
+        int32_t rtn = distribution(*generator);
+        // delete point
+        delete generator;
 
-    return rtn;
-}
+        return rtn;
+    }
 
-/**
- * gamma distribution
- * 
- * @param alpha alpha
- * @param beta beta
- * @return random value
- */
-int32_t func_gamma_distribution_integer(const int8_t &alpha, const int8_t &beta)
-{
-    return std::round(func_gamma_distribution(alpha, beta));
-}
+    /**
+     * calculate
+     * @param x input amount(will be ignored)
+     */
+    float ScsFuncPoissonDistribution::cal(const float &x)
+    {
+        return this->func_poisson_distribution(this->m_occurrence);
+    }
+
+    /**
+     * construct
+     * @param occurrence how many times per minute does an event occur on average
+     */
+    ScsFuncPoissonDistribution::ScsFuncPoissonDistribution(const int8_t &occurrence)
+    {
+        this->m_occurrence = occurrence;
+    }
+
+    /**
+     * gamma distribution
+     * 
+     * @param alpha alpha
+     * @param beta beta
+     * @return random value
+     */
+    float ScsFuncGammaDistribution::func_gamma_distribution(const int8_t &alpha, const int8_t &beta)
+    {
+        // declare normal distribution object
+        std::gamma_distribution<double> distribution(alpha, beta);
+        // get generator
+        std::default_random_engine * generator = this->getRandomGenerator();
+        // generate result
+        float rtn = distribution(*generator);
+        // delete point
+        delete generator;
+
+        return rtn;
+    }
+
+    /**
+     * calculate
+     * @param x input amount(will be ignored)
+     */
+    float ScsFuncGammaDistribution::cal(const float &x)
+    {
+        return this->func_gamma_distribution(this->m_alpha, this->m_beta);
+    }
+
+    /**
+     * construct
+     * @param alpha alpha
+     * @param beta beta
+     */
+    ScsFuncGammaDistribution::ScsFuncGammaDistribution(const int8_t &alpha, const int8_t &beta)
+    {
+        this->m_alpha = alpha;
+        this->m_beta = beta;
+    }
+
+    /**
+     * holding cost
+     * @param amount item amount
+     * @param rate magnification rate
+     * @return cost value
+     */
+    float ScsFuncHoldingCostItem::func_holding_cost_item(const float &amount, const float &rate)
+    {
+        return amount * rate;
+    }
+
+    /**
+     * calculate
+     * @param x input amount(will be ignored)
+     */
+    float ScsFuncHoldingCostItem::cal(const float &x)
+    {
+        return this->func_holding_cost_item(x, this->m_rate);
+    }
+
+    /**
+     * construct
+     * @param rate magnification rate
+     */
+    ScsFuncHoldingCostItem::ScsFuncHoldingCostItem(const float &rate)
+    {
+        this->m_rate = rate;
+    }
 
 }}
 
