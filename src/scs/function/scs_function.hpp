@@ -8,19 +8,9 @@
 
 #include <string>
 #include <random>
+#include <map>
 
 namespace scs { namespace func {
-
-
-// declare function pointer
-typedef float (*Fun_ptr)(const float &);
-
-// // The holding cost of each material is stored as a function pointer in funcMap
-// std::map<std::string, long> funcMap {
-//     {
-//         "func_linear_001", 
-//     }
-// };
 
 class AbstractScsFunction
 {
@@ -32,9 +22,8 @@ class AbstractScsFunction
          * calculate
          * @param x input amount
          */
-        virtual float cal(const float &x);
+        virtual float cal(const float &x) = 0;
 
-        // virtual ~AbstractScsFunction();
     protected:
         /**
          * get random generator
@@ -78,7 +67,7 @@ class ScsFuncLinear001 : public AbstractScsFunction
          * @param a paramater
          * @param b bias
          */
-        float ScsFuncLinear001::func_linear_001(const float &x, const float &a = 1, const float &b = 0);
+        float func_linear_001(const float &x, const float &a = 1, const float &b = 0);
 };
 
 class ScsFuncNormalDistribution : public AbstractScsFunction
@@ -106,7 +95,7 @@ class ScsFuncNormalDistribution : public AbstractScsFunction
          * construct
          */
         ScsFuncNormalDistribution() {};
-    
+
     private:
         /**
          * Normal distribution / Gaussian distribution
@@ -115,7 +104,7 @@ class ScsFuncNormalDistribution : public AbstractScsFunction
          * @param stddev σ is the Standard deviation
          * @return random value
          */
-        float ScsFuncNormalDistribution::func_normal_distribution(const float &mean, const float &stddev);
+        float func_normal_distribution(const float &mean, const float &stddev);
 };
 
 class ScsFuncUniformIntDistribution : public AbstractScsFunction
@@ -143,7 +132,7 @@ class ScsFuncUniformIntDistribution : public AbstractScsFunction
          * construct
          */
         ScsFuncUniformIntDistribution() {};
-    
+
     private:
         /**
          * uniformly distributed on the closed interval [min, max]
@@ -177,7 +166,7 @@ class ScsFuncPoissonDistribution : public AbstractScsFunction
          * construct
          */
         ScsFuncPoissonDistribution() {};
-    
+
     private:
         /**
          * poisson distribution
@@ -213,7 +202,7 @@ class ScsFuncGammaDistribution : public AbstractScsFunction
          * construct
          */
         ScsFuncGammaDistribution() {};
-    
+
     private:
         /**
          * gamma distribution
@@ -257,6 +246,77 @@ class ScsFuncHoldingCostItem : public AbstractScsFunction
          */
         float func_holding_cost_item(const float &amount, const float &rate);
 };
+
+// ============= reflect start =============
+/**
+ * instance factory
+ */
+class ScsFunctionFactory
+{
+    public:
+        /**
+         * create instance
+         */
+        virtual AbstractScsFunction * getNewInstance() = 0;
+};
+
+class ScsReflector
+{
+    public:
+        /**
+         * construct
+         */
+        ScsReflector() {};
+        ~ScsReflector();
+
+        /**
+         * register
+         * @param funcName function name
+         * @param funcF instance creator
+         */
+        void registerFactory(const std::string &funcName, ScsFunctionFactory *funcF);
+
+        /**
+         * get instance
+         * @param funcName function name
+         * @return instance pointer
+         */
+        AbstractScsFunction * getNewInstance(const std::string &funcName);
+    
+    private:
+
+        std::map<std::string, ScsFunctionFactory * > m_factory;
+};
+
+ScsReflector & reflector();
+
+#define REFLECT(name) \
+class ScsFunc_##name : public ScsFunctionFactory \
+{ \
+    public: \
+        AbstractScsFunction * getNewInstance() { \
+            return new ScsFunc##name(); \
+        } \
+}; \
+class Register_##name \
+{ \
+    public: \
+        Register_##name() \
+        { \
+            reflector().registerFactory(#name, new ScsFunc_##name()); \
+        } \
+}; \
+Register_##name register_##name;
+
+/**
+ * Obtain object instances based on class names
+ */
+template<typename T>
+T * getNewInstance(const std::string &funcName)
+{
+    return dynamic_cast<T * >(reflector().getNewInstance(funcName));
+};
+// ============= reflect end =============
 
 }}
 

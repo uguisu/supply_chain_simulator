@@ -12,11 +12,9 @@ void test_all();
 
 void test_func_linear_001();
 void test_func_normal_distribution_001();
-void test_func_normal_distribution_integer_001();
 void test_func_uniform_int_distribution_001();
 void test_func_poisson_distribution_001();
 void test_func_gamma_distribution_001();
-void test_func_gamma_distribution_integer_001();
 
 }}}}
 

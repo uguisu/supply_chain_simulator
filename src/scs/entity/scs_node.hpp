@@ -90,23 +90,7 @@ class ScsNode
          */
         std::map<std::string, ScsItem *> itemMap;
 
-
-
-        // TODO 这里仅仅是一个demo
-        /**
-         * get function map
-         */
-        std::map<std::string, scs::func::Fun_ptr>& getFuncMap();
-        /**
-         * execute target function
-         */
-        float execFunc(const std::string &funcName, const int16_t &val);
-
         ~ScsNode();
-    private:
-
-        // The holding cost of each material is stored as a function pointer in funcMap
-        std::map<std::string, scs::func::Fun_ptr> funcMap;
 };
 
 /**

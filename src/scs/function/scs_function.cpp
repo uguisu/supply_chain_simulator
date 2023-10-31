@@ -42,15 +42,6 @@ namespace scs { namespace func {
      * calculate
      * @param x input amount
      */
-    float AbstractScsFunction::cal(const float &x)
-    {
-        throw std::runtime_error("Class inheritance error");
-    }
-
-    /**
-     * calculate
-     * @param x input amount
-     */
     float ScsFuncLinear001::cal(const float &x)
     {
         return this->func_linear_001(x, this->m_a, this->m_b);
@@ -65,7 +56,7 @@ namespace scs { namespace func {
      * @param a paramater
      * @param b bias
      */
-    float ScsFuncLinear001::func_linear_001(const float &x, const float &a = 1, const float &b = 0)
+    float ScsFuncLinear001::func_linear_001(const float &x, const float &a, const float &b)
     {
         return a * x + b;
     }
@@ -80,6 +71,9 @@ namespace scs { namespace func {
         this->m_a = a;
         this->m_b = b;
     }
+
+    // register
+    REFLECT(Linear001);
 
     /**
      * Normal distribution / Gaussian distribution
@@ -121,6 +115,9 @@ namespace scs { namespace func {
         this->m_mean = mean;
         this->m_stddev = stddev;
     }
+
+    // register
+    REFLECT(NormalDistribution);
 
     /**
      * uniformly distributed on the closed interval [min, max]
@@ -164,6 +161,9 @@ namespace scs { namespace func {
         this->m_max = max;
     }
 
+    // register
+    REFLECT(UniformIntDistribution);
+
     /**
      * poisson distribution
      * 
@@ -202,6 +202,9 @@ namespace scs { namespace func {
     {
         this->m_occurrence = occurrence;
     }
+
+    // register
+    REFLECT(PoissonDistribution);
 
     /**
      * gamma distribution
@@ -244,6 +247,9 @@ namespace scs { namespace func {
         this->m_beta = beta;
     }
 
+    // register
+    REFLECT(GammaDistribution);
+
     /**
      * holding cost
      * @param amount item amount
@@ -273,6 +279,53 @@ namespace scs { namespace func {
         this->m_rate = rate;
     }
 
+    // register
+    REFLECT(HoldingCostItem);
+
+    ScsReflector::~ScsReflector()
+    {
+        // delete point map "m_factory"
+        for(auto wrk_pair : this->m_factory)
+        {
+            delete wrk_pair.second;
+        }
+
+        this->m_factory.clear();
+    }
+
+    /**
+     * register
+     * @param funcName function name
+     * @param funcF instance creator
+     */
+    void ScsReflector::registerFactory(const std::string &funcName, ScsFunctionFactory *funcF)
+    {
+        // verify
+        if(this->m_factory.find(funcName) != this->m_factory.end())
+        {
+            // avoid duplicate declare
+            throw std::runtime_error("Can not find target function by name.");
+        }
+
+        this->m_factory.insert(std::make_pair(funcName, funcF));
+
+    }
+
+    /**
+     * get instance
+     * @param funcName function name
+     * @return instance pointer
+     */
+    AbstractScsFunction * ScsReflector::getNewInstance(const std::string &funcName)
+    {
+        return this->m_factory.at(funcName)->getNewInstance();
+    }
+
+    ScsReflector & reflector()
+    {
+        static ScsReflector reflector;
+        return reflector;
+    }
 }}
 
 #endif /* SCS_FUNCTION_CPP */

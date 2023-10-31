@@ -23,9 +23,6 @@ void test_all();
 void test_node_001();
 void test_edge_001();
 
-void test_901();
-void test_902();
-
 }}}}
 
 #endif /* TEST_SCS_NODE_HPP */

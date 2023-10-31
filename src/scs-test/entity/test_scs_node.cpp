@@ -22,9 +22,6 @@ void test_all()
 
     test_node_001();
     test_edge_001();
-    
-    test_901();
-    test_902();
 
     LOG(INFO) << "Test -> test_scs_node end";
 }
@@ -57,51 +54,6 @@ void test_edge_001()
     assert(ITEM_ID == edge.itemId);
     assert(FUNC_ID_1 == edge.lsFuncId);
     assert(FUNC_ID_2 == edge.loFuncId);
-}
-
-void test_901()
-{
-    // declare ScsNode object
-    scs::entity::ScsNode node;
-
-    // store functions
-    std::string name1 = "item1";
-    node.getFuncMap().insert(std::make_pair(name1, &scs::func::func_holding_cost_item_001));
-
-    std::string name2 = "item2";
-    node.getFuncMap().insert(std::make_pair(name2, &scs::func::func_holding_cost_item_002));
-
-    // check result
-    assert(scs::func::func_holding_cost_item_002(6) == node.execFunc(name2, 6));
-    assert(2 == node.getFuncMap().size());
-}
-
-/**
- * test exception
- */
-void test_902()
-{
-    // declare ScsNode object
-    scs::entity::ScsNode node;
-
-    // store functions
-    std::string name1 = "item1";
-    node.getFuncMap().insert(std::make_pair(name1, &scs::func::func_holding_cost_item_001));
-
-    std::string name2 = "no item";
-
-    bool isThrow = false;
-
-    try
-    {
-        node.execFunc(name2, 6);
-    }
-    catch(const std::exception &e)
-    {
-        isThrow = true;
-    }
-    
-    assert(isThrow);
 }
 
 }}}}

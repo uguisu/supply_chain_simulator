@@ -21,11 +21,9 @@ void test_all()
 
     test_func_linear_001();
     test_func_normal_distribution_001();
-    test_func_normal_distribution_integer_001();
     test_func_uniform_int_distribution_001();
     test_func_poisson_distribution_001();
     test_func_gamma_distribution_001();
-    test_func_gamma_distribution_integer_001();
 
     LOG(INFO) << "Test -> test_scs_function end";
 }
@@ -36,7 +34,12 @@ void test_func_linear_001()
     float a = 31;
     float b = 0.999;
 
-    float Y = scs::func::func_linear_001(x, a, b);
+    scs::func::ScsFuncLinear001 *p_func_linear_001 =
+        scs::func::getNewInstance<scs::func::ScsFuncLinear001>("Linear001");
+    (*p_func_linear_001).m_a = a;
+    (*p_func_linear_001).m_b = b;
+
+    float Y = (*p_func_linear_001).cal(x);
 
     assert(Y == (a * x + b));
 }
@@ -50,26 +53,14 @@ void test_func_normal_distribution_001()
 
     std::unordered_set<float> result;
 
-    for(int i = 0; i < loop; i++)
-    {
-        result.insert(scs::func::func_normal_distribution(mean, stddev));
-    }
-
-    assert(result.size() <= loop);
-}
-
-void test_func_normal_distribution_integer_001()
-{
-    float mean = 5.0;
-    float stddev = 2.0;
-    
-    static uint8_t loop = 20;
-
-    std::unordered_set<int32_t> result;
+    scs::func::ScsFuncNormalDistribution *p_func_normal_distribution =
+        scs::func::getNewInstance<scs::func::ScsFuncNormalDistribution>("NormalDistribution");
+    (*p_func_normal_distribution).m_mean = mean;
+    (*p_func_normal_distribution).m_stddev = stddev;
 
     for(int i = 0; i < loop; i++)
     {
-        result.insert(scs::func::func_normal_distribution_integer(mean, stddev));
+        result.insert((*p_func_normal_distribution).cal(-1));
     }
 
     assert(result.size() <= loop);
@@ -84,9 +75,14 @@ void test_func_uniform_int_distribution_001()
 
     std::unordered_set<int32_t> result;
 
+    scs::func::ScsFuncUniformIntDistribution *p_func_uniform_int_distribution =
+        scs::func::getNewInstance<scs::func::ScsFuncUniformIntDistribution>("UniformIntDistribution");
+    (*p_func_uniform_int_distribution).m_min = min;
+    (*p_func_uniform_int_distribution).m_max = max;
+
     for(int i = 0; i < loop; i++)
     {
-        result.insert(scs::func::func_uniform_int_distribution(min, max));
+        result.insert((*p_func_uniform_int_distribution).cal(-1));
     }
 
     assert(result.size() <= loop);
@@ -100,9 +96,13 @@ void test_func_poisson_distribution_001()
 
     std::unordered_set<int32_t> result;
 
+    scs::func::ScsFuncPoissonDistribution *p_func_poisson_distribution =
+        scs::func::getNewInstance<scs::func::ScsFuncPoissonDistribution>("PoissonDistribution");
+    (*p_func_poisson_distribution).m_occurrence = occurrence;
+
     for(int i = 0; i < loop; i++)
     {
-        result.insert(scs::func::func_poisson_distribution(occurrence));
+        result.insert((*p_func_poisson_distribution).cal(-1));
     }
 
     assert(result.size() <= loop);
@@ -117,30 +117,19 @@ void test_func_gamma_distribution_001()
 
     std::unordered_set<float> result;
 
+    scs::func::ScsFuncGammaDistribution *p_func_gamma_distribution =
+        scs::func::getNewInstance<scs::func::ScsFuncGammaDistribution>("GammaDistribution");
+    (*p_func_gamma_distribution).m_alpha = alpha;
+    (*p_func_gamma_distribution).m_beta = beta;
+
     for(int i = 0; i < loop; i++)
     {
-        result.insert(scs::func::func_gamma_distribution(alpha, beta));
+        result.insert((*p_func_gamma_distribution).cal(-1));
     }
 
     assert(result.size() <= loop);
 }
 
-void test_func_gamma_distribution_integer_001()
-{
-    int8_t alpha = 5;
-    int8_t beta = 8;
-    
-    static uint8_t loop = 20;
-
-    std::unordered_set<int32_t> result;
-
-    for(int i = 0; i < loop; i++)
-    {
-        result.insert(scs::func::func_gamma_distribution_integer(alpha, beta));
-    }
-
-    assert(result.size() <= loop);
-}
 
 }}}}
 

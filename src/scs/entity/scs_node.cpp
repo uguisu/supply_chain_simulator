@@ -12,30 +12,6 @@
 
 namespace scs { namespace entity {
 
-    /**
-     * get function map
-     */
-    std::map<std::string, scs::func::Fun_ptr>& ScsNode::getFuncMap()
-    {
-        return this->funcMap;
-    }
-    /**
-     * execute target function
-     */
-    float ScsNode::execFunc(const std::string &funcName, const int16_t &val)
-    {
-        float rtn = 0.0;
-
-        if(this->funcMap.count(funcName))
-        {
-            rtn = (*(this->funcMap[funcName]))(val);
-        } else {
-            throw std::runtime_error("Can not find target function by name.");
-        }
-
-        return rtn;
-    }
-
     ScsNode::~ScsNode()
     {
         // delete point map "manufactureMap"
